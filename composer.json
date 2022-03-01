@@ -1,0 +1,18 @@
+{
+    "name": "discorgento/module-queue",
+    "description": "A dev-friendly approach to handle background jobs in Magento 2",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "minimum-stability": "alpha",
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Discorgento\\Queue\\": ""
+        }
+    }
+}
