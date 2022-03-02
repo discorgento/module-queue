@@ -5,7 +5,8 @@
     "license": "GPL-3.0",
     "minimum-stability": "alpha",
     "require": {
-        "php": ">=7.2.0 <=7.4.99"
+        "php": ">=7.2.0 <=7.4.99",
+        "discorgento/module-core": "^1.0"
     },
     "autoload": {
         "files": [
