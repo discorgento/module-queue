@@ -10,7 +10,7 @@ use Magento\Framework\Model\AbstractModel;
 
 class Message extends AbstractModel implements MessageInterface, IdentityInterface
 {
-    public const CACHE_TAG = 'dg_queue_message';
+    public const CACHE_TAG = 'discorgento_queue_message';
 
     /** @inheritDoc */
     protected function _construct()

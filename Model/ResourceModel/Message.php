@@ -9,6 +9,6 @@ class Message extends AbstractDb
 {
     protected function _construct()
     {
-        $this->_init('dg_queue', 'message_id');
+        $this->_init('discorgento_queue', 'message_id');
     }
 }

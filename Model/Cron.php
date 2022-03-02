@@ -44,7 +44,11 @@ class Cron
                 $job = $this->objectManager->create($message->getJobClass());
                 $job->execute($message->getTarget(), $message->getAdditionalData());
             } catch (\Throwable $th) {
-                $this->logger->error("{$message->getJobClass()} - {$th->getMessage()}", $message->getData());
+                $errorMessage = "Job {$message->getJobClass()} failed: '{$th->getMessage()}'";
+                $this->logger->error($errorMessage, [
+                    'target' => $message->getTarget(),
+                    'additional_data' => $message->getAdditionalData(),
+                ]);
             }
 
             $this->messageRepository->delete($message);

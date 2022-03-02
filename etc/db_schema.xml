@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- Copyright © Discorgento, Inc. All rights reserved. -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="dg_queue">
+    <table name="discorgento_queue">
         <column name="message_id" xsi:type="int" unsigned="true" nullable="false" identity="true"/>
         <column name="job_class" xsi:type="varchar" nullable="false"/>
         <column name="target" xsi:type="varchar" nullable="true"/>
