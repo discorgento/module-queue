@@ -84,6 +84,12 @@ And.. that's it! In the next cron iteration (which should be within the next min
 
 > 💡 Any async process can benefit from this approach, your creativity is the limit.
 
+## Debugging 🪲
+You can force the queue execution whenever you want through [magerun2](https://github.com/netz98/n98-magerun2), using the sys:cron:run subcommand, like this:
+`./n98-magerun2.phar sy:cr:run discorgento_queue`
+
+Although we only recommend using this on developer mode; if in production mode just check the logs in *var/log/discorgento_queue.log*
+
 ## Roadmap 🧭
  - [ ] add a safety lock to prevent jobs from overflowing each other;
  - [ ] add an option on admin allowing to choose between cron and rabbitmq backend;
