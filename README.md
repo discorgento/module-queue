@@ -9,7 +9,7 @@ For example, let's say you need to reflect product changes made by the storekeep
 ![Linear Workflow](docs/linear-workflow.png)
 
 But fear not citizens, because [we](https://discord.io/Discorgento) are here!  
-![All Might laughting](docs/we_are_here.gif)
+![All Might laughting](docs/we-are-here.gif)
 
 ## Installation 🔧
 ```sh
