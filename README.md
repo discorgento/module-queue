@@ -52,7 +52,7 @@ class ProductSaveAfter implements \Magento\Framework\Event\ObserverInterface
 Now, create the job itself, like _app/code/YourCompany/YourModule/Jobs/SyncProduct.php_:
 
 ```php
-// the job should implent the JobInterface
+// the job should implement the JobInterface
 class SyncProduct implements \Discorgento\Queue\Api\JobInterface
 {
     protected $productRepository;
@@ -81,7 +81,7 @@ class SyncProduct implements \Discorgento\Queue\Api\JobInterface
 
 And.. that's it! In the next cron iteration (which should be within the next minute) your job will be executed without comprimsing the performance of the store at all, assuring a smooth workflow for both your clients and their customers.
 
-Any async process can benefit from this approach, your creativity is the limit.
+> 💡 Any async process can benefit from this approach, your creativity is the limit.
 
 ## Roadmap 🧭
  - [ ] add a safety lock to prevent jobs from overflowing each other;
