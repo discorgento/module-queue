@@ -1,5 +1,7 @@
 ![Discorgento Queue](docs/header.png)
 
+<p align="center">A dev-friendly approach to handle background jobs in Magento 2</p>
+
 <p align="center">
 <img alt="GitHub Stars" src="https://img.shields.io/github/stars/discorgento/module-queue?style=social" aria-hidden="true"/>
 <img alt="Total Downloads" src="https://img.shields.io/packagist/dt/discorgento/module-queue" aria-hidden="true"/>
@@ -7,8 +9,6 @@
 <img src="https://img.shields.io/packagist/v/discorgento/module-queue" alt="Latest Version on Packagist">
 </a>
 </p>
-
-A dev-friendly approach to handle background jobs in Magento 2
 
 ## Overview 💭
 Now and then we need to execute processes that can take some time to execute, and that doesn't necessarily need to be done in real time. Like (but not limited to) third-party integrations.
