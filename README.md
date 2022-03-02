@@ -1,9 +1,11 @@
 ![Discorgento Queue](docs/header.png)
-<p align="center">
 
-![GitHub Stars](https://img.shields.io/github/stars/discorgento/module-queue?style=social)
-![Total Downloads](https://img.shields.io/packagist/dt/discorgento/module-queue)
-[![Latest Version](https://img.shields.io/packagist/v/discorgento/module-queue)](https://packagist.org/packages/discorgento/module-queue)
+<p align="center">
+<img alt="GitHub Stars" src="https://img.shields.io/github/stars/discorgento/module-queue?style=social" aria-hidden="true"/>
+<img alt="Total Downloads" src="https://img.shields.io/packagist/dt/discorgento/module-queue" aria-hidden="true"/>
+<a href="https://packagist.org/packages/discorgento/module-queue">
+<img src="https://img.shields.io/packagist/v/discorgento/module-queue" alt="Latest Version on Packagist">
+</a>
 </p>
 
 A dev-friendly approach to handle background jobs in Magento 2
