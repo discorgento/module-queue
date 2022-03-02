@@ -10,10 +10,17 @@ use Psr\Log\LoggerInterface;
 
 class Cron
 {
-    protected LoggerInterface $logger;
-    protected MessageCollectionFactory $messageCollectionFactory;
-    protected MessageRepository $messageRepository;
-    protected ObjectManagerInterface $objectManager;
+    /** @var LoggerInterface */
+    protected $logger;
+
+    /** @var MessageCollectionFactory */
+    protected $messageCollectionFactory;
+
+    /** @var MessageRepository */
+    protected $messageRepository;
+
+    /** @var ObjectManagerInterface */
+    protected $objectManager;
 
     public function __construct(
         LoggerInterface $logger,

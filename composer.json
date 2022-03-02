@@ -5,7 +5,7 @@
     "license": "GPL-3.0",
     "minimum-stability": "alpha",
     "require": {
-        "php": "^7.4"
+        "php": ">=7.2.0 <=7.4.99"
     },
     "autoload": {
         "files": [

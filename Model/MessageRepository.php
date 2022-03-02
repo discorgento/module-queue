@@ -9,8 +9,11 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 class MessageRepository implements MessageRepositoryInterface
 {
-    protected MessageFactory $messageFactory;
-    protected MessageResourceModel $messageResourceModel;
+    /** @var MessageFactory */
+    protected $messageFactory;
+
+    /** @var MessageResourceModel */
+    protected $messageResourceModel;
 
     public function __construct(
         MessageFactory $messageFactory,

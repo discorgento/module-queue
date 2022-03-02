@@ -9,9 +9,14 @@ use Discorgento\Queue\Model\ResourceModel\Message\CollectionFactory as MessageCo
 
 class Data
 {
-    protected MessageCollectionFactory $messageCollectionFactory;
-    protected MessageFactory $messageFactory;
-    protected MessageRepository $messageRepository;
+    /** @var MessageCollectionFactory */
+    protected $messageCollectionFactory;
+
+    /** @var MessageFactory */
+    protected $messageFactory;
+
+    /** @var MessageRepository */
+    protected $messageRepository;
 
     public function __construct(
         MessageCollectionFactory $messageCollectionFactory,
