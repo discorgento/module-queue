@@ -3,10 +3,10 @@
 <p align="center">A dev-friendly approach to handle background jobs in Magento 2</p>
 
 <p align="center">
-    <a href="https://discord.io/Discorgento"><img alt="Join our Discord" src="https://img.shields.io/discord/768653248902332428?color=%237289d9&label=Discord"/></a>
     <img alt="GitHub Stars" src="https://img.shields.io/github/stars/discorgento/module-queue?style=social" aria-hidden="true"/>
     <img alt="Total Downloads" src="https://img.shields.io/packagist/dt/discorgento/module-queue" aria-hidden="true"/>
     <a href="https://packagist.org/packages/discorgento/module-queue"><img src="https://img.shields.io/packagist/v/discorgento/module-queue" alt="Latest Version on Packagist"></a>
+    <a href="https://discord.io/Discorgento"><img alt="Join our Discord" src="https://img.shields.io/discord/768653248902332428?color=%237289d9&label=Discord"/></a>
 </p>
 
 ## Overview 💭
