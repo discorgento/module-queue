@@ -49,22 +49,18 @@ class Cron
                 /** @var JobInterface */
                 $job = $this->objectManager->create($message->getJobClass());
                 $job->execute($message->getTarget(), $message->getAdditionalData());
-
-                // if in developer mode only clean jobs on success
-                if ($this->coreHelper->isDeveloperMode()) {
-                    $this->messageRepository->delete($message);
-                }
+                $this->messageRepository->delete($message);
             } catch (\Throwable $th) {
                 $errorMessage = "Job {$message->getJobClass()} failed: '{$th->getMessage()}'";
                 $this->logger->error($errorMessage, [
                     'target' => $message->getTarget(),
                     'additional_data' => $message->getAdditionalData(),
                 ]);
-            }
 
-            // keep failed jobs when in developer mode
-            if ($this->coreHelper->isProductionMode()) {
-                $this->messageRepository->delete($message);
+                // keep failed jobs when in developer mode
+                if ($this->coreHelper->isProductionMode()) {
+                    $this->messageRepository->delete($message);
+                }
             }
         }
 
