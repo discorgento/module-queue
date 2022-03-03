@@ -20,7 +20,7 @@ For example, let's say you need to reflect product changes made by the storekeep
 But fear not citizens, because [we](https://discord.io/Discorgento) are here!  
 ![All Might laughting](docs/we-are-here.gif)
 
-## Installation 🔧
+## Install 🔧
 This module is compatible with both Magento 2.3 and Magento 2.4, from PHP 7.2 to 7.4.
 ```sh
 composer require discorgento/module-queue
