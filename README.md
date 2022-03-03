@@ -109,6 +109,6 @@ The queue should be running alongside with the store cron. You can check for err
  - [x] create console commands to execute (discorgento:queue:execute) and clear (discorgento:queue:clear) the queue;
 
 ## Footer notes 🗒
- - magento can do this natively through Message Queues, but those are ridiculously verbose to use;
+ - Magento can do this natively through [Message Queues](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/message-queues/message-queues.html), but those are ridiculously verbose to use;
  - issues and PRs are welcome in this repo;
  - we want **YOU** for [our community](https://discord.io/Discorgento);
