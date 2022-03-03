@@ -93,17 +93,18 @@ And.. that's it! In the next cron iteration (which should be within the next min
 > 💡 **Tip:** any async process can benefit from this approach, your creativity is the limit.
 
 ## Debugging 🪲
-You can force the queue execution whenever you want through [magerun2](https://github.com/netz98/n98-magerun2), using the sys:cron:run subcommand, like this:  
+In developer mode, you can force the queue execution whenever you want through:
 ```sh
-./n98-magerun2.phar sys:cr:run discorgento_queue
+bin/magento discorgento:queue:execute
 ```
+![Queue execution preview with a sexy progress bar](docs/queue-execute-demo.gif)
 
-Although we only recommend using this on developer mode; if in production mode just check the logs in *var/log/discorgento_queue.log*
+In production, the queue should be running alongside with the store cron. You can check for failures in *var/log/discorgento_queue.log* log file.
 
 ## Roadmap 🧭
  - [ ] add a safety lock to prevent jobs from overflowing each other;
  - [ ] add an option on admin allowing to choose between cron and rabbitmq backend;
- - [ ] create console commands to execute (discorgento:queue:execute) and clear (discorgento:queue:clear) the queue;
+ - [x] create console command to execute the queue (discorgento:queue:execute);
 
 ## Footer notes 🗒
  - magento can do this natively through Message Queues, but those are ridiculously verbose to use;

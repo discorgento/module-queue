@@ -17,10 +17,12 @@ class Append
 
     public function append()
     {
-        $this->helper->append(
-            Job::class,
-            1,
-            ['lorem' => 'ipsum']
-        );
+        for ($i = 0; $i < 10; $i++) {
+            $this->helper->append(
+                Job::class,
+                $i,
+                ['number' => $i]
+            );
+        }
     }
 }

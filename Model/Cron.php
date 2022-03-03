@@ -3,67 +3,27 @@
 
 namespace Discorgento\Queue\Model;
 
-use Discorgento\Core\Helper\Data as CoreHelper;
-use Discorgento\Queue\Contracts\JobInterface;
-use Discorgento\Queue\Model\ResourceModel\Message\CollectionFactory as MessageCollectionFactory;
-use Magento\Framework\ObjectManagerInterface;
-use Psr\Log\LoggerInterface;
+use Discorgento\Queue\Helper\Executor;
 
 class Cron
 {
-    /** @var CoreHelper */
-    protected $coreHelper;
-
-    /** @var LoggerInterface */
-    protected $logger;
-
-    /** @var MessageCollectionFactory */
-    protected $messageCollectionFactory;
-
-    /** @var MessageRepository */
-    protected $messageRepository;
-
-    /** @var ObjectManagerInterface */
-    protected $objectManager;
+    /** @var Executor */
+    protected $executorHelper;
 
     public function __construct(
-        CoreHelper $coreHelper,
-        LoggerInterface $logger,
-        MessageCollectionFactory $messageCollectionFactory,
-        MessageRepository $messageRepository,
-        ObjectManagerInterface $objectManager
+        Executor $executorHelper
     ) {
-        $this->coreHelper = $coreHelper;
-        $this->logger = $logger;
-        $this->messageCollectionFactory = $messageCollectionFactory;
-        $this->messageRepository = $messageRepository;
-        $this->objectManager = $objectManager;
+        $this->executorHelper = $executorHelper;
     }
 
+    /**
+     * Execute the pending jobs
+     */
     public function execute()
     {
-        $messages = $this->messageCollectionFactory->create();
-        /** @var Message */
+        $messages = $this->executorHelper->getPendingMessages();
         foreach ($messages as $message) {
-            try {
-                /** @var JobInterface */
-                $job = $this->objectManager->create($message->getJobClass());
-                $job->execute($message->getTarget(), $message->getAdditionalData());
-                $this->messageRepository->delete($message);
-            } catch (\Throwable $th) {
-                $errorMessage = "Job {$message->getJobClass()} failed: '{$th->getMessage()}'";
-                $this->logger->error($errorMessage, [
-                    'target' => $message->getTarget(),
-                    'additional_data' => $message->getAdditionalData(),
-                ]);
-
-                // keep failed jobs when in developer mode
-                if ($this->coreHelper->isProductionMode()) {
-                    $this->messageRepository->delete($message);
-                }
-            }
+            $this->executorHelper->execute($message);
         }
-
-        return $this;
     }
 }

@@ -10,6 +10,13 @@ class Job implements JobInterface
     /** @inheritDoc */
     public function execute($target, $additionalData)
     {
-        echo var_dump($target, $additionalData);
+        sleep(1);
+
+        // 50% chance of random failure
+        if (random_int(1, 2) == 2) {
+            throw new \Exception('random failure simulation');
+        }
+
+        return compact('target', 'additionalData');
     }
 }

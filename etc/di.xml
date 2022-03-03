@@ -1,6 +1,15 @@
 <?xml version="1.0"?>
 <!-- Copyright © Caravel. All rights reserved. -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- console commands -->
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="discorgento_queue_execute" xsi:type="object">Discorgento\Queue\Console\Command\Execute</item>
+            </argument>
+        </arguments>
+    </type>
+
     <!-- create a custom logger handler with dedicated file -->
     <virtualType name="Discorgento\Queue\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
@@ -19,7 +28,7 @@
     </virtualType>
 
     <!-- use the custom logger for classes below -->
-    <type name="Discorgento\Queue\Model\Cron">
+    <type name="Discorgento\Queue\Helper\Executor">
         <arguments>
             <argument name="logger" xsi:type="object">Discorgento\Queue\Logger\Logger</argument>
         </arguments>
