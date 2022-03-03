@@ -64,15 +64,14 @@ class Execute extends Command
             $progressBar->advance();
         }
 
-        $successedJobsCount = $totalMessages - $failedJobsCount;
-        $output->writeln('');
+        $succeededJobsCount = $totalMessages - $failedJobsCount;
 
-        $resultMessage = "<info>{$successedJobsCount} jobs executed successfully</info>";
+        $resultMessage = "<info>{$succeededJobsCount} jobs executed successfully</info>";
         if ($failedJobsCount > 0) {
             $resultMessage .= ", <error>{$failedJobsCount} jobs failed</error>, check var/log/discorgento_queue.log for more info";
         }
         $resultMessage .= '.';
 
-        $output->writeln($resultMessage);
+        $output->writeln(PHP_EOL . $resultMessage);
     }
 }

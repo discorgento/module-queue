@@ -6,6 +6,7 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="discorgento_queue_execute" xsi:type="object">Discorgento\Queue\Console\Command\Execute</item>
+                <item name="discorgento_queue_clear" xsi:type="object">Discorgento\Queue\Console\Command\Clear</item>
             </argument>
         </arguments>
     </type>

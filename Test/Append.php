@@ -18,11 +18,7 @@ class Append
     public function append()
     {
         for ($i = 0; $i < 10; $i++) {
-            $this->helper->append(
-                Job::class,
-                $i,
-                ['number' => $i]
-            );
+            $this->helper->append(Job::class, $i);
         }
     }
 }

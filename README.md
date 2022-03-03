@@ -104,7 +104,7 @@ In production, the queue should be running alongside with the store cron. You ca
 ## Roadmap 🧭
  - [ ] add a safety lock to prevent jobs from overflowing each other;
  - [ ] add an option on admin allowing to choose between cron and rabbitmq backend;
- - [x] create console command to execute the queue (discorgento:queue:execute);
+ - [x] create console commands to execute (discorgento:queue:execute) and clear (discorgento:queue:clear) the queue;
 
 ## Footer notes 🗒
  - magento can do this natively through Message Queues, but those are ridiculously verbose to use;
