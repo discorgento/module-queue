@@ -89,7 +89,7 @@ class SyncProduct implements \Discorgento\Queue\Api\JobInterface
 }
 ```
 
-And.. that's it! In the next cron iteration (which should be within the next minute) your job will be executed without comprimsing the performance of the store at all, assuring a smooth workflow for both your clients and their customers.
+And.. that's it! In the next cron iteration (which should be within the next minute) your job will be executed without compromising the performance of the store at all, assuring a smooth workflow for both your clients and their customers.
 
 > 💡 **Tip:** Any async process can benefit from this approach, your creativity is the limit.
 
