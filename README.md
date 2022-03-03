@@ -109,4 +109,4 @@ In production, the queue should be running alongside with the store cron. You ca
 ## Footer notes 🗒
  - magento can do this natively through Message Queues, but those are ridiculously verbose to use;
  - issues and PRs are welcome in this repo;
- - We want **YOU** for [our community](https://discord.io/Discorgento);
+ - we want **YOU** for [our community](https://discord.io/Discorgento);
