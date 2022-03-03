@@ -93,13 +93,15 @@ And.. that's it! In the next cron iteration (which should be within the next min
 > 💡 **Tip:** any async process can benefit from this approach, your creativity is the limit.
 
 ## Debugging 🪲
-In developer mode, you can force the queue execution whenever you want through:
+### Developer Mode
+You can force the queue execution whenever you want through:
 ```sh
 bin/magento discorgento:queue:execute
 ```
 ![Queue execution preview with a sexy progress bar](docs/queue-execute-demo.gif)
 
-In production, the queue should be running alongside with the store cron. You can check for failures in *var/log/discorgento_queue.log* log file.
+### Production Mode
+The queue should be running alongside with the store cron. You can check for errors in *var/log/discorgento_queue.log* log file.
 
 ## Roadmap 🧭
  - [ ] add a safety lock to prevent jobs from overflowing each other;
