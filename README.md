@@ -94,10 +94,7 @@ And.. that's it! In the next cron iteration (which should be within the next min
 
 ## Debugging 🪲
 ### Developer Mode
-You can force the queue execution whenever you want through:
-```sh
-bin/magento discorgento:queue:execute
-```
+You can force the queue execution whenever you want through `bin/magento discorgento:queue:execute` command:
 ![Queue execution preview with a sexy progress bar](docs/queue-execute-demo.gif)
 
 ### Production Mode
