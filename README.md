@@ -21,7 +21,7 @@ But fear not citizens, because [we](https://discord.io/Discorgento) are here!
 
 ## Install 🔧
 This module is compatible with both Magento 2.3 and Magento 2.4, from PHP 7.2 to 7.4.
-```sh
+```
 composer require discorgento/module-queue && bin/magento setup:upgrade
 ```
 
@@ -57,7 +57,7 @@ class ProductSaveAfter implements \Magento\Framework\Event\ObserverInterface
 }
 ```
 
-Now, create the job itself, like _app/code/YourCompany/YourModule/Jobs/SyncProduct.php_:
+Now create the job itself, like _app/code/YourCompany/YourModule/Jobs/SyncProduct.php_:
 
 ```php
 // the job should implement the JobInterface
