@@ -8,3 +8,5 @@
 "Keep failed jobs for ___ days","Manter jobs falhos por ___ dias"
 "Keep success jobs for ___ days","Manter jobs bem-sucedidos por ___ dias"
 "Tries","Tentativas"
+"Retry","Tentar Novamente"
+"Mass Retry","Retentativa em massa"
