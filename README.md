@@ -26,11 +26,11 @@ composer require discorgento/module-queue:^3 && bin/magento setup:upgrade
 ```
 
 ## Usage ⚙️
-> 💡 **Tip:** for 2.x version please refer to the old docs [here](README_OLD.md#usage-%EF%B8%8F). Just remember: the current version is 100% retrocompatible, so you can upgrade and use all the new features without breaking your existant code!
-
 There's just two steps needed: 1) append a job to the queue, 2) create the job class itself ([similar to Laravel](https://laravel.com/docs/9.x/queues#class-structure)).
 
 ![Async Workflow](docs/async-workflow.png)
+
+> 💡 **Tip:** for 2.x version please refer to the old docs [here](https://github.com/discorgento/module-queue/blob/2.0.4/README.md#usage-%EF%B8%8F). Just remember: the current version is 100% retrocompatible, so you can upgrade (by running the install command above) and use all the new features without breaking your existant code!
 
 Let's go back to the product sync example. You can now write the `catalog_product_save_after` event observer like this:
 
@@ -67,7 +67,6 @@ class ProductSaveAfter implements Event\ObserverInterface
     }
 }
 ```
-> 💡 **Tip:** If you're a long time user of our module you'll probably have noticed that we've tweaked it a little bit recently. But no worries, the old `$queueHelper->append()` still works.. and always will! (retrocompatibility ftw)  
 
 <br>
 Now create the job itself, let's say <i>app/code/YourCompany/YourModule/Job/SyncProduct.php</i>:
