@@ -2,7 +2,8 @@
 <!-- Copyright © Discorgento, Inc. All rights reserved. -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="default">
-        <job name="discorgento_queue" instance="Discorgento\Queue\Model\Cron" method="execute">
+        <!-- queue runner -->
+        <job name="discorgento_queue_execute" instance="Discorgento\Queue\Model\Cron\Execute" method="execute">
             <schedule>* * * * *</schedule>
         </job>
     </group>
