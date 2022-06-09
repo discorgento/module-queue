@@ -8,16 +8,16 @@
             <resource>Discorgento_Queue::config_discorgento_queue</resource>
             <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                 <label>General</label>
-                <field id="auto_retry_amount" type="text" sortOrder="10" showInDefault="1" translate="label comment">
+                <field id="auto_retry_amount" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label comment">
                     <label>Auto-retry amount</label>
                     <validate>validate-number required-entry</validate>
                     <comment>Amount of times to retry a failed job. '0' disables this feature.</comment>
                 </field>
-                <field id="failed_jobs_expires" type="text" sortOrder="20" showInDefault="1" translate="label">
+                <field id="failed_jobs_expires" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                     <label>Keep failed jobs for __ days</label>
                     <validate>validate-number required-entry</validate>
                 </field>
-                <field id="success_jobs_expires" type="text" sortOrder="30" showInDefault="1" translate="label">
+                <field id="success_jobs_expires" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                     <label>Keep success jobs for __ days</label>
                     <validate>validate-number required-entry</validate>
                 </field>

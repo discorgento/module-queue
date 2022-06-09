@@ -197,7 +197,6 @@
 
         <column name="additional_data">
             <settings>
-                <filter>text</filter>
                 <label translate="true">Parameters</label>
                 <bodyTmpl>Discorgento_Queue/ui/grid/cells/code</bodyTmpl>
             </settings>
@@ -235,7 +234,6 @@
 
         <column name="result">
             <settings>
-                <filter>text</filter>
                 <label>Result</label>
             </settings>
         </column>
