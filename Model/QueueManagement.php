@@ -46,7 +46,7 @@ class QueueManagement implements QueueManagementInterface
             }
         } catch (\Throwable $th) {
             $this->logger->error(
-                "Discorgento_Queue: failed to append job, {$th->getMessage()}",
+                "Discorgento_Queue: failed to append the job, {$th->getMessage()}",
                 compact('job', 'target')
             );
         }

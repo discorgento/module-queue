@@ -6,6 +6,7 @@ namespace Discorgento\Queue\Model;
 use Discorgento\Queue\Api\Data\MessageInterface;
 use Discorgento\Queue\Api\MessageManagementInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 
@@ -23,26 +24,32 @@ class MessageManagement implements MessageManagementInterface
     /** @var SearchCriteriaBuilder */
     private $searchCriteriaBuilder;
 
+    /** @var ScopeConfigInterface */
+    private $scopeConfig;
+
     public function __construct(
         DateTime $date,
         MessageRepository $messageRepository,
         ObjectManagerInterface $objectManager,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        ScopeConfigInterface $scopeConfig
     ) {
         $this->date = $date;
         $this->messageRepository = $messageRepository;
         $this->objectManager = $objectManager;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /** @inheritDoc */
     public function process(MessageInterface $message)
     {
         try {
-            $job = $this->objectManager->create($message->getJob());
-
             $message->setExecutedAt($this->date->gmtDate());
+            $message->setTries($message->getTries() + 1);
             $this->updateMessageStatus($message, Message::STATUS_PROCESSING);
+
+            $job = $this->objectManager->create($message->getJob());
 
             $result = $job->execute(
                 $message->getTarget(),
@@ -66,8 +73,20 @@ class MessageManagement implements MessageManagementInterface
     /** @inheritDoc */
     public function getPending()
     {
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('status', Message::STATUS_PENDING)
+        $statuses = [Message::STATUS_PENDING];
+
+        $searchCriteriaBuilder = $this->searchCriteriaBuilder;
+
+        $retryAmount = $this->scopeConfig->getValue('queue/general/auto_retry_amount');
+        if ($retryAmount > 0) {
+            $statuses[] = Message::STATUS_ERROR;
+            $searchCriteriaBuilder->addFilter('tries', $retryAmount, 'lt');
+        }
+
+        $statuses = implode(',', $statuses);
+
+        $searchCriteria = $searchCriteriaBuilder
+            ->addFilter('status', $statuses, 'in')
             ->create();
 
         return $this->messageRepository->getList($searchCriteria);

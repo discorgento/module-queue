@@ -14,12 +14,12 @@
                     <comment>Amount of times to retry a failed job. '0' disables this feature.</comment>
                 </field>
                 <field id="failed_jobs_expires" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                    <label>Keep failed jobs for __ days</label>
-                    <validate>validate-number required-entry</validate>
+                    <label>Keep failed jobs for ___ days</label>
+                    <validate>validate-number required-entry not-negative-amount</validate>
                 </field>
                 <field id="success_jobs_expires" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-                    <label>Keep success jobs for __ days</label>
-                    <validate>validate-number required-entry</validate>
+                    <label>Keep success jobs for ___ days</label>
+                    <validate>validate-number required-entry not-negative-amount</validate>
                 </field>
             </group>
         </section>

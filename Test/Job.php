@@ -14,9 +14,9 @@ class Job implements JobInterface
 
         // 50% chance of random failure
         if (random_int(1, 2) == 2) {
-            throw new \Exception('random failure simulation');
+            throw new \Exception('Failure simulation XD');
         }
 
-        return compact('target', 'additionalData');
+        return 'Test successful :D';
     }
 }

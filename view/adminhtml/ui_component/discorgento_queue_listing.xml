@@ -237,5 +237,12 @@
                 <label>Result</label>
             </settings>
         </column>
+
+        <column name="tries">
+            <settings>
+                <label>Tries</label>
+                <visible>false</visible>
+            </settings>
+        </column>
     </columns>
 </listing>

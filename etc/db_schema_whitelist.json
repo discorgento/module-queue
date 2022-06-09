@@ -6,6 +6,7 @@
             "job_class": true,
             "target": true,
             "additional_data": true,
+            "tries": true,
             "status": true,
             "result": true,
             "queued_at": true,

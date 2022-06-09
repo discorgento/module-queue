@@ -6,6 +6,7 @@
         <column name="job" xsi:type="varchar" onCreate="migrateDataFrom(job_class)" nullable="false"/>
         <column name="target" xsi:type="varchar" nullable="true"/>
         <column name="additional_data" xsi:type="text" nullable="true"/>
+        <column name="tries" xsi:type="smallint" default="0"/>
         <column name="status" xsi:type="varchar" default="pending"/>
         <column name="result" xsi:type="text"/>
         <column name="queued_at" xsi:type="datetime" nullable="false" default="CURRENT_TIMESTAMP" on_update="false"/>

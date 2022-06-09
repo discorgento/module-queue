@@ -13,7 +13,9 @@ interface MessageManagementInterface
     public function process(Data\MessageInterface $message);
 
     /**
-     * Get messages waiting to be processed
+     * Get messages waiting to be processed,
+     * including the failed ones that
+     * didn't reached the max retry amount
      * @return SearchResults
      */
     public function getPending();
