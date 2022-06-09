@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- Copyright © Discorgento. All rights reserved. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Discorgento_Queue::management" sortOrder="40" title="Queue Management" module="Discorgento_Queue" parent="Magento_Backend::system_tools" action="discorgento_queue/management" resource="Discorgento_Queue::management"/>
+    </menu>
+</config>

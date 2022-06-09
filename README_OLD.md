@@ -20,14 +20,12 @@ But fear not citizens, because [we](https://discord.io/Discorgento) are here!
 ![All Might laughting](docs/we-are-here.gif)
 
 ## Install 🔧
-This module is compatible with both Magento 2.3 and 2.4, from PHP 7.2 to 8.1.
+This module is compatible with both Magento 2.3 and Magento 2.4, from PHP 7.2 to 7.4.
 ```
-composer require discorgento/module-queue:^3 && bin/magento setup:upgrade
+composer require discorgento/module-queue && bin/magento setup:upgrade
 ```
 
 ## Usage ⚙️
-> 💡 **Tip:** for 2.x version please refer to the old docs [here](README_OLD.md#usage-%EF%B8%8F). Just remember: the current version is 100% retrocompatible, so you can upgrade and use all the new features without breaking your existant code!
-
 There's just two steps needed: 1) append a job to the queue, 2) create the job class itself ([similar to Laravel](https://laravel.com/docs/9.x/queues#class-structure)).
 
 ![Async Workflow](docs/async-workflow.png)
@@ -35,79 +33,56 @@ There's just two steps needed: 1) append a job to the queue, 2) create the job c
 Let's go back to the product sync example. You can now write the `catalog_product_save_after` event observer like this:
 
 ```php
-<?php declare(strict_types=1);
-/** Copyright © Discorgento. All rights reserved. */
-
-namespace YourCompany\YourModule\Observer;
-
-use Discorgento\Queue\Api\QueueManagementInterface;
-use Magento\Framework\Event;
-
-class ProductSaveAfter implements Event\ObserverInterface
+class ProductSaveAfter implements \Magento\Framework\Event\ObserverInterface
 {
-    private QueueManagementInterface $queueManagement;
+    protected $queueHelper;
 
     public function __construct(
-        QueueManagementInterface $queueManagement
+        \Discorgento\Queue\Helper\Data $queueHelper
     ) {
-        $this->queueManagement = $queueManagement;
+        $this->queueHelper = $queueHelper;
     }
 
     /** @inheritDoc */
-    public function execute(Event\Observer $observer) {
-        // append a job to the queue so it will run in background
-        $this->queueManagement->append(
-            // your job class, we'll create it later
-            \YourCompany\YourModule\Job\SyncProduct::class,
-            // a identifier of the entity we'll be working with
-            $observer->getProduct()->getId(),
-            // additional data for later usage (optional)
-            ['foo' => $observer->getFoo()]
+    public function execute(
+        \Magento\Framework\Event\Observer $observer
+    ) {
+        // append a job to the queue so it will run later in background
+        $this->queueHelper->append(
+            \YourCompany\YourModule\Jobs\SyncProduct::class, // job class, we'll create it below
+            $observer->getProduct()->getId(), // job "target", in that case the product id
+            ['foo' => $observer->getFoo()] // additional data for later usage (optional)
         );
     }
 }
 ```
-> 💡 **Tip:** If you're a long time user of our module you'll probably have noticed that we've tweaked it a little bit recently. But no worries, the old `$queueHelper->append()` still works.. and always will! (retrocompatibility ftw)  
 
-<br>
-Now create the job itself, let's say <i>app/code/YourCompany/YourModule/Job/SyncProduct.php</i>:
+Now create the job itself, like _app/code/YourCompany/YourModule/Jobs/SyncProduct.php_:
 
 ```php
-<?php declare(strict_types=1);
-/** Copyright © Discorgento. All rights reserved. */
-
-namespace YourCompany\YourModule\Job;
-
-use Discorgento\Queue\Api\JobInterface;
-use Magento\Catalog\Api\ProductRepositoryInterface;
-use YourCompany\YourModule\Gateway\ProductSyncer;
-
-// the job MUST implement the JobInterface
-class SyncProduct implements JobInterface
+// the job should implement the JobInterface
+class SyncProduct implements \Discorgento\Queue\Api\JobInterface
 {
-    private ProductRepositoryInterface $productRepository;
-    private ProductSyncer $productSynchronizer;
+    protected $productRepository;
+    protected $productSynchronizer;
 
     public function __construct(
-        ProductRepositoryInterface $productRepository,
-        ProductSyncer $productSynchronizer
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \YourCompany\YourModule\Helper\Sync\Product $productSynchronizer
     ) {
         $this->productRepository = $productRepository;
         $this->productSynchronizer = $productSynchronizer;
     }
 
-    /** @inheritDoc */
+    /**
+     * @param int|string|null $target The product id
+     * @param array $additionalData Optional extra data inserted on append
+     */
     public function execute($target, $additionalData)
     {
-        // retrieve the target product
+        // retrieve the product and sync it
         $product = $this->productRepository->getById($target);
-
-        // sync it to a third-party PIM/ERP
-        $response = $this->productSynchronizer->sync($product);
-
-        // NEW!! now you can optionally return a string as the job "result".
-        // This will be shown at admin in "System->(Tools) Queue Management"
-        return "Synced. ID on PIM: {$response->pim_id}";
+        $this->productSynchronizer->sync($product);
     }
 }
 ```
@@ -116,10 +91,13 @@ And.. that's it! In the next cron iteration (which should be within the next min
 
 > 💡 **Tip:** any async process can benefit from this approach, your creativity is the limit.
 
-## Managing the queue
-You can check for pending, executed, or failed jobs at our brand new Queue Management grid.  
-It can be accessed through the "System->(Tools) Queue Management" menu (near to the native cache/index management entries):
-![Admin Grid Preview](docs/admin-grid.png)
+## Debugging 🪲
+### Developer Mode
+You can force the queue execution whenever you want through `bin/magento discorgento:queue:execute` command:  
+![Queue execution preview with a sexy progress bar](docs/queue-execute-demo.gif)
+
+### Production Mode
+The queue should be running alongside with the store cron. You can check for errors in *var/log/discorgento_queue.log* log file.
 
 ## Footer notes 🗒
  - Magento can do this natively through [Message Queues](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/message-queues/message-queues.html), but those are ridiculously verbose to use;

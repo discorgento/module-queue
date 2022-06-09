@@ -1,6 +1,15 @@
 <?xml version="1.0"?>
-<!-- Copyright © Caravel. All rights reserved. -->
+<!-- Copyright © Discorgento. All rights reserved. -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- models mapping -->
+    <preference for="Discorgento\Queue\Api\MessageManagementInterface" type="Discorgento\Queue\Model\MessageManagement"/>
+    <preference for="Discorgento\Queue\Api\MessageRepositoryInterface" type="Discorgento\Queue\Model\MessageRepository"/>
+    <preference for="Discorgento\Queue\Api\QueueManagementInterface" type="Discorgento\Queue\Model\QueueManagement"/>
+
+    <!-- data models mapping -->
+    <preference for="Discorgento\Queue\Api\Data\MessageInterface" type="Discorgento\Queue\Model\Message"/>
+    <preference for="Discorgento\Queue\Api\Data\MessageSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
     <!-- console commands -->
     <type name="Magento\Framework\Console\CommandListInterface">
         <arguments>
@@ -11,27 +20,16 @@
         </arguments>
     </type>
 
-    <!-- create a custom logger handler with dedicated file -->
-    <virtualType name="Discorgento\Queue\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+    <!-- /*
+     * Grid listing data provider. Although only applying
+     * to admin this really needs to be at global scope:
+     * https://magento.stackexchange.com/a/220761/39320
+     */ -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
-            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
-            <argument name="fileName" xsi:type="string">/var/log/discorgento_queue.log</argument>
-        </arguments>
-    </virtualType>
-
-    <!-- create the custom logger itself -->
-    <virtualType name="Discorgento\Queue\Logger\Logger" type="Magento\Framework\Logger\Monolog">
-        <arguments>
-            <argument name="handlers" xsi:type="array">
-                <item name="system" xsi:type="object">Discorgento\Queue\Logger\Handler</item>
+            <argument name="collections" xsi:type="array">
+                <item name="discorgento_queue_listing_data_source" xsi:type="string">Discorgento\Queue\Model\ResourceModel\Message\Grid\Collection</item>
             </argument>
-        </arguments>
-    </virtualType>
-
-    <!-- use the custom logger for classes below -->
-    <type name="Discorgento\Queue\Helper\Executor">
-        <arguments>
-            <argument name="logger" xsi:type="object">Discorgento\Queue\Logger\Logger</argument>
         </arguments>
     </type>
 </config>

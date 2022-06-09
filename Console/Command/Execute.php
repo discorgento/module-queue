@@ -3,7 +3,7 @@
 
 namespace Discorgento\Queue\Console\Command;
 
-use Discorgento\Queue\Helper\Executor;
+use Discorgento\Queue\Api\MessageManagementInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBarFactory;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,19 +11,19 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Execute extends Command
 {
-    /** @var Executor */
-    protected $executorHelper;
+    /** @var MessageManagementInterface */
+    private $messageManagement;
 
     /** @var ProgressBarFactory */
-    protected $progressBarFactory;
+    private $progressBarFactory;
 
     public function __construct(
-        Executor $executorHelper,
+        MessageManagementInterface $messageManagement,
         ProgressBarFactory $progressBarFactory,
         string $name = null
     ) {
         parent::__construct($name);
-        $this->executorHelper = $executorHelper;
+        $this->messageManagement = $messageManagement;
         $this->progressBarFactory = $progressBarFactory;
     }
 
@@ -31,7 +31,7 @@ class Execute extends Command
     protected function configure()
     {
         $this->setName('discorgento:queue:execute');
-        $this->setDescription('Execute the jobs previously queued.');
+        $this->setDescription('Execute pending jobs in queue.');
 
         parent::configure();
     }
@@ -39,39 +39,28 @@ class Execute extends Command
     /** @inheritDoc */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $messages = $this->executorHelper->getPendingMessages();
-        $totalMessages = $messages->count();
+        $pendingMessages = $this->messageManagement->getPending();
 
+        $totalMessages = $pendingMessages->getTotalCount();
         if ($totalMessages < 1) {
             return $output->writeln("<error>There's no pending jobs.</error>");
         }
 
-        $output->writeln('<info>Executing the jobs in queue..</info>');
+        $output->writeln('Executing the jobs in queue..');
 
+        /** @var \Symfony\Component\Console\Helper\ProgressBar */
         $progressBar = $this->progressBarFactory->create([
             'output' => $output,
             'max' => $totalMessages,
         ]);
 
-        $failedJobsCount = 0;
-
-        foreach ($messages as $message) {
-            $hasSucceeded = $this->executorHelper->execute($message);
-            if (!$hasSucceeded) {
-                $failedJobsCount++;
-            }
-
+        /** @var \Discorgento\Queue\Api\Data\MessageInterface */
+        foreach ($pendingMessages->getItems() as $message) {
+            $this->messageManagement->process($message);
             $progressBar->advance();
         }
 
-        $succeededJobsCount = $totalMessages - $failedJobsCount;
-
-        $resultMessage = "<info>{$succeededJobsCount} jobs executed successfully</info>";
-        if ($failedJobsCount > 0) {
-            $resultMessage .= ", <error>{$failedJobsCount} jobs failed</error>, check var/log/discorgento_queue.log for more info";
-        }
-        $resultMessage .= '.';
-
-        $output->writeln(PHP_EOL . $resultMessage);
+        $progressBar->finish();
+        $output->writeln(PHP_EOL . '<info>Done.</info>');
     }
 }

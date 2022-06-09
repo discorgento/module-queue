@@ -3,9 +3,13 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="discorgento_queue">
         <column name="message_id" xsi:type="int" unsigned="true" nullable="false" identity="true"/>
-        <column name="job_class" xsi:type="varchar" nullable="false"/>
+        <column name="job" xsi:type="varchar" onCreate="migrateDataFrom(job_class)" nullable="false"/>
         <column name="target" xsi:type="varchar" nullable="true"/>
         <column name="additional_data" xsi:type="text" nullable="true"/>
+        <column name="status" xsi:type="varchar" default="pending"/>
+        <column name="result" xsi:type="text"/>
+        <column name="queued_at" xsi:type="datetime" nullable="false" default="CURRENT_TIMESTAMP" on_update="false"/>
+        <column name="executed_at" xsi:type="datetime" nullable="true"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="message_id"/>
         </constraint>

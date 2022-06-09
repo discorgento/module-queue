@@ -3,14 +3,14 @@
 
 namespace Discorgento\Queue\Api;
 
-interface JobInterface
+interface QueueManagementInterface
 {
     /**
-     * Your job logic goes here
+     * Append given job to the queue
      *
+     * @param string $job
      * @param int|string|null $target
      * @param array $additionalData
-     * @return string|void optional, this will be the 'result' of your job
      */
-    public function execute($target, $additionalData);
+    public function append(string $job, $target = null, array $additionalData = []);
 }

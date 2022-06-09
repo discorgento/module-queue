@@ -1,0 +1,18 @@
+{
+    "discorgento_queue": {
+        "column": {
+            "message_id": true,
+            "job": true,
+            "job_class": true,
+            "target": true,
+            "additional_data": true,
+            "status": true,
+            "result": true,
+            "queued_at": true,
+            "executed_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

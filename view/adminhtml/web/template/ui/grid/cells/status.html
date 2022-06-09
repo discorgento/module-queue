@@ -1,0 +1,17 @@
+<!-- /**
+ * Copyright © Discorgento. All rights reserved.
+ *
+ * @see vendor/magento/module-ui/view/base/web/templates/grid/cells/text.html
+ * @see vendor/discorgento/module-queue/view/adminhtml/ui_component/discorgento_queue_listing.xml
+ * @see https://devdocs.magento.com/guides/v2.4/ui_comp_guide/components/ui-column.html
+*/ -->
+<div class="data-grid-cell-content">
+    <span data-bind='css: {
+        "grid-severity-info": $row().status == "pending",
+        "grid-severity-minor": $row().status == "processing",
+        "grid-severity-major": $row().status == "error",
+        "grid-severity-notice": $row().status == "success"
+    }'>
+        <span text="$col.getLabel($row())"></span>
+    </span>
+</div>

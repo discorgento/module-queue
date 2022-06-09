@@ -3,15 +3,12 @@
 
 namespace Discorgento\Queue\Api;
 
+use Discorgento\Queue\Api\Data\MessageSearchResultsInterface;
 use Discorgento\Queue\Model\Message;
+use Magento\Framework\Api\SearchCriteriaInterface;
 
 interface MessageRepositoryInterface
 {
-    /**
-     * @param Message $message
-     */
-    public function save($message);
-
     /**
      * @param int $messageId
      * @return Message
@@ -19,12 +16,17 @@ interface MessageRepositoryInterface
     public function getById($messageId);
 
     /**
-     * @param Message $message
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return MessageSearchResultsInterface[]
      */
-    public function delete($message);
+    public function getList(SearchCriteriaInterface $searchCriteria);
+
+    public function save(Message $message);
+
+    public function delete(Message $message);
 
     /**
-     * @param int $messageId
+     * @param int|string $messageId
      */
     public function deleteById($messageId);
 }

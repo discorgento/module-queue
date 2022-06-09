@@ -9,6 +9,8 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection
 {
+    protected $_idFieldName = MessageResourceModel::ID_FIELD;
+
     protected function _construct()
     {
         $this->_init(Message::class, MessageResourceModel::class);

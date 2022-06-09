@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<!-- Copyright © Caravel. All rights reserved. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <queue>
+            <general>
+                <auto_retry_amount>3</auto_retry_amount>
+                <failed_jobs_expires>30</failed_jobs_expires>
+                <success_jobs_expires>15</success_jobs_expires>
+            </general>
+        </queue>
+    </default>
+</config>

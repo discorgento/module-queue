@@ -10,7 +10,15 @@ use Magento\Framework\Model\AbstractModel;
 
 class Message extends AbstractModel implements MessageInterface, IdentityInterface
 {
-    public const CACHE_TAG = 'discorgento_queue_message';
+    public const CACHE_TAG = 'discorgento_queue';
+
+    public const STATUS_PENDING = 'pending';
+
+    public const STATUS_PROCESSING = 'processing';
+
+    public const STATUS_SUCCESS = 'success';
+
+    public const STATUS_ERROR = 'error';
 
     /** @inheritDoc */
     protected function _construct()

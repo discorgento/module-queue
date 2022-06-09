@@ -15,19 +15,19 @@ use Symfony\Component\Console\Question\ConfirmationQuestionFactory;
 class Clear extends Command
 {
     /** @var ConfirmationQuestionFactory */
-    protected $confirmationQuestionFactory;
+    private $confirmationQuestionFactory;
 
     /** @var CoreHelper */
-    protected $coreHelper;
+    private $coreHelper;
 
     /** @var MessagesCollectionFactory */
-    protected $messagesCollectionFactory;
+    private $messagesCollectionFactory;
 
     /** @var MessageRepository */
-    protected $messageRepository;
+    private $messageRepository;
 
     /** @var ProgressBarFactory */
-    protected $progressBarFactory;
+    private $progressBarFactory;
 
     public function __construct(
         ConfirmationQuestionFactory $confirmationQuestionFactory,
@@ -58,8 +58,8 @@ class Clear extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $messages = $this->messagesCollectionFactory->create();
-        $totalMessages = $messages->count();
 
+        $totalMessages = $messages->getSize();
         if ($totalMessages < 1) {
             return $output->writeln("<error>There's no pending jobs.</error>");
         }
