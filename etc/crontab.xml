@@ -6,5 +6,10 @@
         <job name="discorgento_queue_execute" instance="Discorgento\Queue\Model\Cron\Execute" method="execute">
             <schedule>* * * * *</schedule>
         </job>
+
+        <!-- queue auto cleanup -->
+        <job name="discorgento_queue_cleanup" instance="Discorgento\Queue\Model\Cron\Cleanup" method="execute">
+            <schedule>0 9 * * *</schedule>
+        </job>
     </group>
 </config>

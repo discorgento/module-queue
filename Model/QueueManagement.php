@@ -67,6 +67,7 @@ class QueueManagement implements QueueManagementInterface
             ->addFieldToFilter('job', $message->getJob())
             ->addFieldToFilter('target', $message->getTarget())
             ->addFieldToFilter('additional_data', $encodedAdditionalData)
+            ->addFieldToFilter('status', Message::STATUS_PENDING)
             ->count() > 0;
     }
 }

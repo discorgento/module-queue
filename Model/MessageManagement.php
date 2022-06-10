@@ -5,6 +5,7 @@ namespace Discorgento\Queue\Model;
 
 use Discorgento\Queue\Api\Data\MessageInterface;
 use Discorgento\Queue\Api\MessageManagementInterface;
+use Discorgento\Queue\Api\MessageRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\ObjectManagerInterface;
@@ -15,7 +16,7 @@ class MessageManagement implements MessageManagementInterface
     /** @var DateTime */
     private $date;
 
-    /** @var MessageRepository */
+    /** @var MessageRepositoryInterface */
     private $messageRepository;
 
     /** @var ObjectManagerInterface */
@@ -29,7 +30,7 @@ class MessageManagement implements MessageManagementInterface
 
     public function __construct(
         DateTime $date,
-        MessageRepository $messageRepository,
+        MessageRepositoryInterface $messageRepository,
         ObjectManagerInterface $objectManager,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         ScopeConfigInterface $scopeConfig
