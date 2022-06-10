@@ -9,6 +9,11 @@
     <a target="_blank" href="https://discord.io/Discorgento"><img alt="Join our Discord" src="https://img.shields.io/discord/768653248902332428?color=%237289d9&label=Discord"/></a>
 </p>
 
+<p align="center">Our Sponsors</p>
+<p align="center">
+    <a href="https://www.caravelx.com/"><img src="docs/sponsors/caravelx.svg" alt="Caravel X"></a>
+</p>
+
 ## Overview 💭
 Now and then we need to create processes that can take some time to execute, and that doesn't necessarily need to be done in real time. Like (but not limited to) third-party integrations.
 
@@ -102,7 +107,7 @@ class SyncProduct implements JobInterface
         // sync it to a third-party PIM/ERP
         $response = $this->productSynchronizer->sync($product);
 
-        // NEW!! now you can optionally return a string as the job "result".
+        // NEW!! Now you can optionally return a string as the job "result".
         // This will be shown at admin in "System->(Tools) Queue Management"
         return "Synced. ID on PIM: {$response->pim_id}";
     }
