@@ -1,7 +1,6 @@
 ![Discorgento Queue](docs/header.png)
 
 <p align="center">A dev-friendly approach to handle background jobs in Magento 2</p>
-
 <p align="center">
     <img alt="GitHub Stars" src="https://img.shields.io/github/stars/discorgento/module-queue?style=social" aria-hidden="true"/>
     <img alt="Total Downloads" src="https://img.shields.io/packagist/dt/discorgento/module-queue" aria-hidden="true"/>
@@ -31,11 +30,15 @@ composer require discorgento/module-queue:^3 && bin/magento setup:upgrade
 ```
 
 ## Usage ⚙️
-There's just two steps needed: 1) append a job to the queue, 2) create the job class itself ([similar to Laravel](https://laravel.com/docs/9.x/queues#class-structure)).
+> 💡 **Tip:** for 2.x version please refer to the old docs [here](https://github.com/discorgento/module-queue/blob/2.0.4/README.md#usage-%EF%B8%8F). Just remember: the current version is 100% retrocompatible, so you can upgrade (by running the install command above) and use all the new features without breaking your existant code!
+
+<br>
+
+It's really simple, there's just two steps needed:
+ - append a <abbr title="The class containing your heavy/third-party integration code">job</abbr> to the queue;
+ - create the job class itself ([similar to Laravel](https://laravel.com/docs/9.x/queues#class-structure)).
 
 ![Async Workflow](docs/async-workflow.png)
-
-> 💡 **Tip:** for 2.x version please refer to the old docs [here](https://github.com/discorgento/module-queue/blob/2.0.4/README.md#usage-%EF%B8%8F). Just remember: the current version is 100% retrocompatible, so you can upgrade (by running the install command above) and use all the new features without breaking your existant code!
 
 Let's go back to the product sync example. You can now write the `catalog_product_save_after` observer like this:
 
@@ -73,6 +76,7 @@ class ProductSaveAfter implements Event\ObserverInterface
 ```
 
 <br>
+
 Now create the job itself, let's say <i>app/code/YourCompany/YourModule/Job/SyncProduct.php</i>:
 
 ```php
@@ -118,12 +122,21 @@ And.. that's it! In the next cron iteration (which should be within the next min
 
 > 💡 **Tip:** any async process can benefit from this approach, your creativity is the limit.
 
-## Managing the queue
-You can check for pending, executed, or failed jobs at our brand new Queue Management grid.  
-It can be accessed through the "System->(Tools) Queue Management" menu (near to the native cache/index management entries):
+## Managing the queue 🆕
+You can check for pending, processing, executed, or failed jobs at our brand new Queue Management grid.
+
+This feature can be accessed through the "System->(Tools) Queue Management" menu (near to the native cache/index management entries):
 ![Admin Grid Preview](docs/admin-grid.png)
 
-## Footer notes 🗒
+At this screen you can:
+ - take a look on what is on queue right now;
+ - check for recently executed jobs outputs;
+ - besides the [autoretry feature](@todo), you can also manually requeue a job through the "Retry" mass action;
+ - besides the [autocleanup feature](@todo), you can also manually remove/cancel a job through the "Delete" mass action;
+
+> 💡 **Tip:** for more info/extra features check our [official wiki](https://github.com/discorgento/module-queue/wiki).
+
+## Notes 🗒
  - Magento can do this natively through [Message Queues](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/message-queues/message-queues.html), but those are ridiculously verbose to use;
  - issues and PRs are welcome in this repo;
- - we want **YOU** for [our community](https://discord.io/Discorgento);
+ - we want **YOU** for [our community](https://discord.io/Discorgento)!
