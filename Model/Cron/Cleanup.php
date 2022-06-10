@@ -7,13 +7,9 @@ use Discorgento\Queue\Api\MessageRepositoryInterface;
 use Discorgento\Queue\Model\Message;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Framework\Stdlib\DateTime\DateTime;
 
 class Cleanup
 {
-    /** @var DateTime */
-    private $date;
-
     /** @var MessageRepository */
     private $messageRepository;
 
@@ -24,12 +20,10 @@ class Cleanup
     private $scopeConfig;
 
     public function __construct(
-        DateTime $date,
         MessageRepositoryInterface $messageRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         ScopeConfigInterface $scopeConfig
     ) {
-        $this->date = $date;
         $this->messageRepository = $messageRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->scopeConfig = $scopeConfig;
