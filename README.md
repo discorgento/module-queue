@@ -32,11 +32,10 @@ There's just two steps needed: 1) append a job to the queue, 2) create the job c
 
 > 💡 **Tip:** for 2.x version please refer to the old docs [here](https://github.com/discorgento/module-queue/blob/2.0.4/README.md#usage-%EF%B8%8F). Just remember: the current version is 100% retrocompatible, so you can upgrade (by running the install command above) and use all the new features without breaking your existant code!
 
-Let's go back to the product sync example. You can now write the `catalog_product_save_after` event observer like this:
+Let's go back to the product sync example. You can now write the `catalog_product_save_after` observer like this:
 
 ```php
 <?php declare(strict_types=1);
-/** Copyright © Discorgento. All rights reserved. */
 
 namespace YourCompany\YourModule\Observer;
 
@@ -73,7 +72,6 @@ Now create the job itself, let's say <i>app/code/YourCompany/YourModule/Job/Sync
 
 ```php
 <?php declare(strict_types=1);
-/** Copyright © Discorgento. All rights reserved. */
 
 namespace YourCompany\YourModule\Job;
 
@@ -111,7 +109,7 @@ class SyncProduct implements JobInterface
 }
 ```
 
-And.. that's it! In the next cron iteration (which should be within the next minute) your job will be executed without compromising the performance of the store at all, assuring a smooth workflow for both your clients and their customers.
+And.. that's it! In the next cron iteration (which should be within the next minute) your job will be executed without compromising the performance of the store, assuring a smooth workflow for both your clients and their customers.
 
 > 💡 **Tip:** any async process can benefit from this approach, your creativity is the limit.
 
