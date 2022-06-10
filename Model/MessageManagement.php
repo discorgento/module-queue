@@ -65,6 +65,14 @@ class MessageManagement implements MessageManagementInterface
         }
     }
 
+    /** @inheritDoc */
+    public function massProcess(iterable $messages)
+    {
+        foreach ($messages as $message) {
+            $this->process($message);
+        }
+    }
+
     private function updateMessageStatus(Message $message, string $status): void
     {
         $message->setStatus($status);

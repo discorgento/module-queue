@@ -3,12 +3,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="default">
         <!-- process pending jobs -->
-        <job name="discorgento_queue_execute" instance="Discorgento\Queue\Model\Cron\Execute" method="execute">
+        <job name="discorgento_queue_execute" instance="Discorgento\Queue\Model\Cron\Consumer" method="execute">
             <schedule>* * * * *</schedule>
         </job>
 
         <!-- retry failed ones -->
-        <job name="discorgento_queue_retry" instance="Discorgento\Queue\Model\Cron\Retry" method="execute">
+        <job name="discorgento_queue_retry" instance="Discorgento\Queue\Model\Cron\Consumer" method="retry">
             <schedule>45 */4 * * *</schedule>
         </job>
 

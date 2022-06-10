@@ -13,6 +13,11 @@ interface MessageManagementInterface
     public function process(Data\MessageInterface $message);
 
     /**
+     * Process a bunch of messages at once
+     */
+    public function massProcess(iterable $message);
+
+    /**
      * Get messages waiting to be processed
      * @return SearchResults
      */

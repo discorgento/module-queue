@@ -5,7 +5,7 @@ namespace Discorgento\Queue\Model\Cron;
 
 use Discorgento\Queue\Api\MessageManagementInterface;
 
-class Retry
+class Consumer
 {
     /** @var MessageManagementInterface */
     private $messageManagement;
@@ -17,13 +17,20 @@ class Retry
     }
 
     /**
-     * Retried the failed jobs in background
+     * Consume the jobs in queue
      */
     public function execute()
     {
-        $failedJobs = $this->messageManagement->getToBeRetried();
-        foreach ($failedJobs->getItems() as $message) {
-            $this->messageManagement->process($message);
-        }
+        $pendingMessages = $this->messageManagement->getPending()->getItems();
+        $this->messageManagement->massProcess($pendingMessages);
+    }
+
+    /**
+     * Retry the failed jobs
+     */
+    public function retry()
+    {
+        $failedJobs = $this->messageManagement->getToBeRetried()->getItems();
+        $this->messageManagement->massProcess($failedJobs);
     }
 }
