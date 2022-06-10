@@ -1,10 +1,24 @@
 <?xml version="1.0"?>
-<!-- Copyright © Discorgento. All rights reserved. -->
+<!-- Copyright © Caravel. All rights reserved. -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
     <acl>
         <resources>
-            <resource id="Magento_Backend::admin">
-                <resource id="Discorgento_Queue::management" title="Queue" sortOrder="10" />
+            <resource id="Magento_Backend::admin" title="Magento Admin" translate="title">
+                <!-- admin config -->
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Discorgento_Queue::config_discorgento_queue" title="Queue" sortOrder="200" />
+                        </resource>
+                    </resource>
+                </resource>
+
+                <!-- Queue Management grid -->
+                <resource id="Magento_Backend::system">
+                    <resource id="Magento_Backend::tools">
+                        <resource id="Discorgento_Queue::management" title="Queue Management" sortOrder="50" />
+                    </resource>
+                </resource>
             </resource>
         </resources>
     </acl>
