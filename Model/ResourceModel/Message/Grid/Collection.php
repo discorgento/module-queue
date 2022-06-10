@@ -15,7 +15,8 @@ use Psr\Log\LoggerInterface;
 
 class Collection extends MessageCollection implements SearchResultInterface
 {
-    private AggregationInterface $aggregations;
+    /** @var AggregationInterface */
+    private $aggregations;
 
     public function __construct(
         EntityFactoryInterface $entityFactory,

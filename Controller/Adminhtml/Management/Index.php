@@ -13,7 +13,8 @@ class Index extends Action implements HttpGetActionInterface
 {
     public const ADMIN_RESOURCE = 'Discorgento_Queue::management';
 
-    private PageFactory $resultPageFactory;
+    /** @var PageFactory */
+    private $resultPageFactory;
 
     public function __construct(
         Context $context,

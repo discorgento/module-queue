@@ -12,7 +12,7 @@ class Job implements JobInterface
     {
         sleep(1);
 
-        // 50% chance of random failure
+        // 50% chance of failure
         if (random_int(1, 2) == 2) {
             throw new \Exception('Failure simulation XD');
         }

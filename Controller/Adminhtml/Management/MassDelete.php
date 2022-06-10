@@ -15,8 +15,11 @@ class MassDelete extends Action implements HttpPostActionInterface
 {
     public const ADMIN_RESOURCE = 'Discorgento_Queue::management';
 
-    private Filter $filter;
-    private Collection $objectCollection;
+    /** @var Filter */
+    private $filter;
+
+    /** @var Collection */
+    private $objectCollection;
 
     public function __construct(
         Context $context,

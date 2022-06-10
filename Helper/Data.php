@@ -7,7 +7,7 @@ use Discorgento\Queue\Api\QueueManagementInterface;
 
 /**
  * Although technically deprecated, this class
- * will be kept to assure retrocompatibility
+ * will be kept to assure retrocompatibility.
  */
 class Data
 {
