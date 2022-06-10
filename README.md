@@ -137,6 +137,6 @@ At this screen you can:
 > 💡 **Tip:** for more info/extra features check our [official wiki](https://github.com/discorgento/module-queue/wiki).
 
 ## Notes 🗒
- - Magento can do this natively through [Message Queues](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/message-queues/message-queues.html), but those are ridiculously verbose to use;
+ - Magento can do this natively through [Message Queues](https://developer.adobe.com/commerce/php/development/components/message-queues/), but those are ridiculously verbose to use;
  - issues and PRs are welcome in this repo;
  - we want **YOU** for [our community](https://discord.io/Discorgento)!
