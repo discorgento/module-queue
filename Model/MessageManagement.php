@@ -74,20 +74,24 @@ class MessageManagement implements MessageManagementInterface
     /** @inheritDoc */
     public function getPending()
     {
-        $statuses = [Message::STATUS_PENDING];
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->addFilter('status', Message::STATUS_PENDING)
+            ->create();
 
-        $searchCriteriaBuilder = $this->searchCriteriaBuilder;
+        return $this->messageRepository->getList($searchCriteria);
+    }
 
+    /** @inheritDoc */
+    public function getToBeRetried()
+    {
         $retryAmount = $this->scopeConfig->getValue('queue/general/auto_retry_amount');
-        if ($retryAmount > 0) {
-            $statuses[] = Message::STATUS_ERROR;
-            $searchCriteriaBuilder->addFilter('tries', $retryAmount, 'lt');
+        if (!$retryAmount) {
+            return;
         }
 
-        $statuses = implode(',', $statuses);
-
-        $searchCriteria = $searchCriteriaBuilder
-            ->addFilter('status', $statuses, 'in')
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->addFilter('status', Message::STATUS_ERROR)
+            ->addFilter('tries', $retryAmount, 'lt')
             ->create();
 
         return $this->messageRepository->getList($searchCriteria);

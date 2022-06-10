@@ -9,7 +9,7 @@ use Symfony\Component\Console\Helper\ProgressBarFactory;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Execute extends Command
+class Retry extends Command
 {
     /** @var MessageManagementInterface */
     private $messageManagement;
@@ -30,8 +30,8 @@ class Execute extends Command
     /** @inheritDoc */
     protected function configure()
     {
-        $this->setName('discorgento:queue:execute');
-        $this->setDescription('Execute pending jobs in queue.');
+        $this->setName('discorgento:queue:retry');
+        $this->setDescription('Retry failed jobs in queue.');
 
         parent::configure();
     }
@@ -39,14 +39,14 @@ class Execute extends Command
     /** @inheritDoc */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $pendingMessages = $this->messageManagement->getPending();
+        $failedJobs = $this->messageManagement->getToBeRetried();
 
-        $totalMessages = $pendingMessages->getTotalCount();
+        $totalMessages = $failedJobs->getTotalCount();
         if ($totalMessages < 1) {
-            return $output->writeln("There's no pending jobs.");
+            return $output->writeln("There's no jobs waiting to be retried.");
         }
 
-        $output->writeln('Executing the jobs in queue..');
+        $output->writeln('Retrying the failed jobs..');
 
         /** @var \Symfony\Component\Console\Helper\ProgressBar */
         $progressBar = $this->progressBarFactory->create([
@@ -55,7 +55,7 @@ class Execute extends Command
         ]);
 
         /** @var \Discorgento\Queue\Api\Data\MessageInterface */
-        foreach ($pendingMessages->getItems() as $message) {
+        foreach ($failedJobs->getItems() as $message) {
             $this->messageManagement->process($message);
             $progressBar->advance();
         }

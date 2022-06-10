@@ -2,12 +2,17 @@
 <!-- Copyright © Discorgento, Inc. All rights reserved. -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="default">
-        <!-- queue runner -->
+        <!-- process pending jobs -->
         <job name="discorgento_queue_execute" instance="Discorgento\Queue\Model\Cron\Execute" method="execute">
             <schedule>* * * * *</schedule>
         </job>
 
-        <!-- queue auto cleanup -->
+        <!-- retry failed ones -->
+        <job name="discorgento_queue_retry" instance="Discorgento\Queue\Model\Cron\Retry" method="execute">
+            <schedule>45 */4 * * *</schedule>
+        </job>
+
+        <!-- auto cleanup -->
         <job name="discorgento_queue_cleanup" instance="Discorgento\Queue\Model\Cron\Cleanup" method="execute">
             <schedule>0 9 * * *</schedule>
         </job>
