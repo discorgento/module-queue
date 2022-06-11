@@ -30,7 +30,7 @@ composer require discorgento/module-queue:^3 && bin/magento setup:upgrade
 ```
 
 ## Usage ⚙️
-> 💡 **Tip:** for 2.x version please refer to the old docs [here](https://github.com/discorgento/module-queue/blob/2.0.4/README.md#usage-%EF%B8%8F). Just remember: the current version is 100% retrocompatible, so you can upgrade (by running the install command above) and use all the new features without breaking your existant code!
+> 💡 **Tip:** for 2.x version please refer to the old docs [here](https://github.com/discorgento/module-queue/blob/2.0.4/README.md#usage-%EF%B8%8F). Just remember: the current version is 100% retrocompatible, so you can [upgrade](https://github.com/discorgento/module-queue/wiki/Upgrading-from-2.x) and use all the new features without breaking your existant code!
 
 <br>
 
