@@ -90,7 +90,7 @@ class QueueManagement implements QueueManagementInterface
 
     private function parseAdditionlData(Message $message, array $additionalData)
     {
-        $settings = $additionalData[self::ADDITIONAL_SETTINGS_KEY];
+        $settings = $additionalData[self::ADDITIONAL_SETTINGS_KEY] ?? [];
 
         // handle message grouping
         $group = $settings['group'] ?? 'default';
