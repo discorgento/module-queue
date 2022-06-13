@@ -129,10 +129,10 @@ And.. that's it! In the next cron iteration (which should be within five minutes
 You can track the queued jobs status and their respective output with our brand new Queue Management grid, accessible through the "System->(Tools) Queue Management" menu (near to the native cache/index management entries):
 
 ![Queue Management Grid Preview](docs/admin-grid.png)
-> 💡 **Tip:** For more info about all the features available on this grid please refer to [its documentation](https://github.com/discorgento/module-queue/wiki/Managing-the-queue).
+> 💡 **Tip:** for more info about all the actions available in this grid please refer to [its documentation](https://github.com/discorgento/module-queue/wiki/Managing-the-queue).
 
 ## Advanced features 🤖
-Although this module was ported to Magento 2 due to its simplicity (originally it was designed for 1.9 due to 1.x lack of a native queue feature), over the time it also got some rally neat tricks! So if want to do more with it, don't forget to check our [official wiki](https://github.com/discorgento/module-queue/wiki).
+Although this module was <abbr title="originally it was designed for 1.9 due to 1.x lack of a native queue feature">ported</abbr> to Magento 2 due to its simplicity, over the time it also got some really neat tricks! So if want to do more with it, don't forget to check the [official wiki](https://github.com/discorgento/module-queue/wiki).
 
 ## Notes 🗒
  - Magento can do this natively through [Message Queues](https://developer.adobe.com/commerce/php/development/components/message-queues/), but those are ridiculously verbose to use;

@@ -40,11 +40,10 @@ class QueueManagement implements QueueManagementInterface
     {
         try {
             /** @var Message */
-            $message = $this->messageFactory->create()
-                ->addData(compact('job', 'target'))
-                ->setAdditionalData($additionalData);
+            $message = $this->messageFactory->create();
+            $message->addData(compact('job', 'target'));
 
-            $this->parseSettings($message, $additionalData);
+            $this->parseAdditionlData($message, $additionalData);
 
             if (!$this->alreadyQueued($message)) {
                 $this->messageRepository->save($message);
@@ -89,15 +88,18 @@ class QueueManagement implements QueueManagementInterface
             ->count() > 0;
     }
 
-    private function parseSettings(Message $message, array $additionalData)
+    private function parseAdditionlData(Message $message, array $additionalData)
     {
-        $settings = &$additionalData[self::ADDITIONAL_SETTINGS_KEY];
+        $settings = $additionalData[self::ADDITIONAL_SETTINGS_KEY];
 
-        // handle message group
+        // handle message grouping
         $group = $settings['group'] ?? 'default';
         $message->setGroup($group);
 
+        // additional settings can go here in future
+
         // prevent internal settings from end up in user additional data
-        unset($settings);
+        unset($additionalData[self::ADDITIONAL_SETTINGS_KEY]);
+        $message->setAdditionalData($additionalData);
     }
 }

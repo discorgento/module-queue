@@ -191,14 +191,14 @@
             <settings>
                 <filter>textRange</filter>
                 <sorting>desc</sorting>
-                <label>ID</label>
+                <label translate="true">ID</label>
             </settings>
         </column>
 
         <column name="group">
             <settings>
                 <filter>text</filter>
-                <label>Group</label>
+                <label translate="true">Group</label>
                 <visible>false</visible>
             </settings>
         </column>
@@ -220,6 +220,7 @@
         <column name="additional_data">
             <settings>
                 <label translate="true">Parameters</label>
+                <visible>false</visible>
                 <bodyTmpl>Discorgento_Queue/ui/grid/cells/code</bodyTmpl>
             </settings>
         </column>
@@ -262,7 +263,7 @@
 
         <column name="tries">
             <settings>
-                <label>Tries</label>
+                <label translate="true">Tries</label>
                 <visible>false</visible>
             </settings>
         </column>
