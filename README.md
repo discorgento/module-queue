@@ -35,7 +35,7 @@ composer require discorgento/module-queue:^3 && bin/magento setup:upgrade
 <br>
 
 It's really simple, there's just two steps needed:
- - append a <abbr title="The class containing your heavy/third-party integration code">job</abbr> to the queue;
+ - append a "job" (class containing the heavy/third-party integration code) to the queue;
  - create the job class itself ([similar to Laravel](https://laravel.com/docs/9.x/queues#class-structure)).
 
 ![Async Workflow](docs/async-workflow.png)
