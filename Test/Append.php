@@ -33,5 +33,10 @@ class Append
         for ($i = 6; $i <= 10; $i++) {
             $this->queueManagement->append(Job::class, $i);
         }
+
+        // group feature
+        for ($i = 11; $i <= 15; $i++) {
+            $this->queueManagement->appendToGroup('misc', Job::class, $i);
+        }
     }
 }
