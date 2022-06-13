@@ -26,17 +26,17 @@ class Append
     {
         // legacy way
         for ($i = 1; $i <= 5; $i++) {
-            $this->helper->append(Job::class, $i);
+            $this->helper->append(Job::class, $i, ['foo' => 'bar']);
         }
 
         // modern way
         for ($i = 6; $i <= 10; $i++) {
-            $this->queueManagement->append(Job::class, $i);
+            $this->queueManagement->append(Job::class, $i, ['lorem' => 'ipsum']);
         }
 
         // group feature
         for ($i = 11; $i <= 15; $i++) {
-            $this->queueManagement->appendToGroup('misc', Job::class, $i);
+            $this->queueManagement->appendToGroup('misc', Job::class, $i, ['dolor' => 'statement']);
         }
     }
 }
