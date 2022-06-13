@@ -13,4 +13,15 @@ interface QueueManagementInterface
      * @param array $additionalData
      */
     public function append(string $job, $target = null, array $additionalData = []);
+
+    /**
+     * Append a job to the queue, with a group identifier
+     * Eg.: each of yours modules name that use the queue
+     *
+     * @param string $group
+     * @param string $job
+     * @param int|string|null $target
+     * @param array $additionalData
+     */
+    public function appendToGroup(string $group, string $job, $target = null, array $additionalData = []);
 }

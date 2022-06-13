@@ -9,6 +9,8 @@ use Psr\Log\LoggerInterface;
 
 class QueueManagement implements QueueManagementInterface
 {
+    private const ADDITIONAL_SETTINGS_KEY = '_discorgento_queue_settings_';
+
     /** @var LoggerInterface */
     private $logger;
 
@@ -37,9 +39,12 @@ class QueueManagement implements QueueManagementInterface
     public function append(string $job, $target = null, array $additionalData = [])
     {
         try {
+            /** @var Message */
             $message = $this->messageFactory->create()
                 ->addData(compact('job', 'target'))
                 ->setAdditionalData($additionalData);
+
+            $this->parseSettings($message, $additionalData);
 
             if (!$this->alreadyQueued($message)) {
                 $this->messageRepository->save($message);
@@ -50,6 +55,18 @@ class QueueManagement implements QueueManagementInterface
                 compact('job', 'target')
             );
         }
+    }
+
+    /** @inheritDoc */
+    public function appendToGroup(
+        string $group,
+        string $job,
+        $target = null,
+        array $additionalData = []
+    ) {
+        $additionalData[self::ADDITIONAL_SETTINGS_KEY] = compact('group');
+
+        $this->append($job, $target, $additionalData);
     }
 
     /**
@@ -64,10 +81,23 @@ class QueueManagement implements QueueManagementInterface
         $encodedAdditionalData = json_encode($message->getAdditionalData());
 
         return $this->messageCollectionFactory->create()
+            ->addFieldToFilter('group', $message->getGroup())
             ->addFieldToFilter('job', $message->getJob())
             ->addFieldToFilter('target', $message->getTarget())
             ->addFieldToFilter('additional_data', $encodedAdditionalData)
             ->addFieldToFilter('status', Message::STATUS_PENDING)
             ->count() > 0;
+    }
+
+    private function parseSettings(Message $message, array $additionalData)
+    {
+        $settings = &$additionalData[self::ADDITIONAL_SETTINGS_KEY];
+
+        // handle message group
+        $group = $settings['group'] ?? 'default';
+        $message->setGroup($group);
+
+        // prevent internal settings from end up in user additional data
+        unset($settings);
     }
 }

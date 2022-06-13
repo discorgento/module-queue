@@ -68,7 +68,7 @@ class ProductSaveAfter implements Event\ObserverInterface
             \YourCompany\YourModule\Job\SyncProduct::class,
             // a identifier of the entity we'll be working with
             $observer->getProduct()->getId(),
-            // additional data for later usage (optional)
+            // (optional) additional data for later usage
             ['foo' => $observer->getFoo()]
         );
     }
@@ -108,6 +108,9 @@ class SyncProduct implements JobInterface
         // retrieve the target product
         $product = $this->productRepository->getById($target);
 
+        // optional additional data usage example
+        $product->setFoo($additionalData['foo'] ?? null);
+
         // sync it to a third-party PIM/ERP
         $response = $this->productSynchronizer->sync($product);
 
@@ -123,18 +126,13 @@ And.. that's it! In the next cron iteration (which should be within five minutes
 > 💡 **Tip:** any async process can benefit from this approach, your creativity is the limit.
 
 ## Managing the queue 🆕
-You can check for pending, processing, executed, or failed jobs at our brand new Queue Management grid.
+You can track the queued jobs status and their respective output with our brand new Queue Management grid, accessible through the "System->(Tools) Queue Management" menu (near to the native cache/index management entries):
 
-This feature can be accessed through the "System->(Tools) Queue Management" menu (near to the native cache/index management entries):
-![Admin Grid Preview](docs/admin-grid.png)
+![Queue Management Grid Preview](docs/admin-grid.png)
+> 💡 **Tip:** For more info about all the features available on this grid please refer to [its documentation](https://github.com/discorgento/module-queue/wiki/Managing-the-queue).
 
-At this screen you can:
- - take a look on what is on queue right now;
- - check for recently executed jobs outputs;
- - besides the [autoretry feature](@todo), you can also manually requeue a job through the "Retry" mass action;
- - besides the [autocleanup feature](@todo), you can also manually remove/cancel a job through the "Delete" mass action;
-
-> 💡 **Tip:** for more info/extra features check our [official wiki](https://github.com/discorgento/module-queue/wiki).
+## Advanced features 🤖
+Although this module was ported to Magento 2 due to its simplicity (originally it was designed for 1.9 due to 1.x lack of a native queue feature), over the time it also got some rally neat tricks! So if want to do more with it, don't forget to check our [official wiki](https://github.com/discorgento/module-queue/wiki).
 
 ## Notes 🗒
  - Magento can do this natively through [Message Queues](https://developer.adobe.com/commerce/php/development/components/message-queues/), but those are ridiculously verbose to use;

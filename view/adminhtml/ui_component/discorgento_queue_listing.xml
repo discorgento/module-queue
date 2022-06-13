@@ -195,6 +195,14 @@
             </settings>
         </column>
 
+        <column name="group">
+            <settings>
+                <filter>text</filter>
+                <label>Group</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+
         <column name="job">
             <settings>
                 <filter>text</filter>

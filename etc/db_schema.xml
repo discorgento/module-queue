@@ -3,6 +3,7 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="discorgento_queue">
         <column name="message_id" xsi:type="int" unsigned="true" nullable="false" identity="true"/>
+        <column name="group" xsi:type="varchar" nullable="false" default="default"/>
         <column name="job" xsi:type="varchar" onCreate="migrateDataFrom(job_class)" nullable="false"/>
         <column name="target" xsi:type="varchar" nullable="true"/>
         <column name="additional_data" xsi:type="text" nullable="true"/>
