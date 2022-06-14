@@ -197,7 +197,9 @@
 
         <column name="group">
             <settings>
-                <filter>text</filter>
+                <filter>select</filter>
+                <options class="Discorgento\Queue\Ui\Component\Listing\Column\Group\Options"/>
+                <dataType>select</dataType>
                 <label translate="true">Group</label>
                 <visible>false</visible>
             </settings>
