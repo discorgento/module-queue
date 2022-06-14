@@ -10,7 +10,7 @@ interface JobInterface
      *
      * @param int|string|null $target
      * @param array $additionalData
-     * @return string|void optional, this will be the 'result' of your job
+     * @return string|null|void (optional) this will be the 'result' of your job
      */
     public function execute($target, $additionalData);
 }
