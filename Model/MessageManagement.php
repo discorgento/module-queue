@@ -65,7 +65,7 @@ class MessageManagement implements MessageManagementInterface
 
             $status = Message::STATUS_SUCCESS;
         } catch (\Throwable $exception) {
-            $result = __("EXCEPTION: '{$exception->getMessage()}', check the var/exception.log for more details.");
+            $result = __("EXCEPTION: '%1', check the var/log/exception.log for more details.", $exception->getMessage());
             $status = Message::STATUS_ERROR;
 
             $this->logger->error(
