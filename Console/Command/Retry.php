@@ -41,7 +41,7 @@ class Retry extends Command
     {
         $failedJobs = $this->messageManagement->getToBeRetried();
 
-        $totalMessages = $failedJobs->getTotalCount();
+        $totalMessages = count($failedJobs);
         if ($totalMessages < 1) {
             return $output->writeln("There's no jobs waiting to be retried.");
         }
@@ -54,8 +54,7 @@ class Retry extends Command
             'max' => $totalMessages,
         ]);
 
-        /** @var \Discorgento\Queue\Api\Data\MessageInterface */
-        foreach ($failedJobs->getItems() as $message) {
+        foreach ($failedJobs as $message) {
             $this->messageManagement->process($message);
             $progressBar->advance();
         }

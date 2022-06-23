@@ -25,7 +25,7 @@ interface MessageManagementInterface
 
     /**
      * Get failed messages waiting to be retried
-     * @return SearchResults
+     * @return Data\MessageInterface[]
      */
     public function getToBeRetried();
 }

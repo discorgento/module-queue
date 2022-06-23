@@ -9,7 +9,7 @@ interface MessageInterface
      * Set additional data that can be used by the job later
      *
      * @param array|null $additionalData
-     * @return MessageInterface
+     * @return self
      */
     public function setAdditionalData($additionalData);
 

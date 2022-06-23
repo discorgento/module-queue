@@ -94,7 +94,7 @@ class MessageManagement implements MessageManagementInterface
     {
         $retryAmount = $this->scopeConfig->getValue('queue/general/auto_retry_amount');
         if (!$retryAmount) {
-            return;
+            return [];
         }
 
         $searchCriteria = $this->searchCriteriaBuilder
@@ -102,6 +102,6 @@ class MessageManagement implements MessageManagementInterface
             ->addFilter('tries', $retryAmount, 'lt')
             ->create();
 
-        return $this->messageRepository->getList($searchCriteria);
+        return $this->messageRepository->getList($searchCriteria)->getItems();
     }
 }

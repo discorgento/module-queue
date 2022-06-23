@@ -16,8 +16,7 @@ interface MessageRepositoryInterface
     public function getById($messageId);
 
     /**
-     * @param SearchCriteriaInterface $searchCriteria
-     * @return MessageSearchResultsInterface[]
+     * @return MessageSearchResultsInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
 

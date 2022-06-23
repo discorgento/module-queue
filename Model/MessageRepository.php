@@ -23,7 +23,7 @@ class MessageRepository implements MessageRepositoryInterface
     /** @var MessageCollectionFactory */
     protected $messageCollectionFactory;
 
-    /** @var Message */
+    /** @var MessageSearchResultsInterfaceFactory */
     protected $searchResultsFactory;
 
     /** @var CollectionProcessorInterface */

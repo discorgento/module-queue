@@ -47,8 +47,8 @@ class MassRetry extends Action implements HttpPostActionInterface
             $message->addData([
                 'status' => Message::STATUS_PENDING,
                 'tries' => 0,
-                'result' => null,
                 'executed_at' => null,
+                'result' => null,
             ]);
 
             $this->messageRepository->save($message);
