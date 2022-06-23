@@ -10,11 +10,15 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
+use Psr\Log\LoggerInterface;
 
 class MessageManagement implements MessageManagementInterface
 {
     /** @var DateTime */
     private $date;
+
+    /** @var LoggerInterface */
+    private $logger;
 
     /** @var MessageRepositoryInterface */
     private $messageRepository;
@@ -30,12 +34,14 @@ class MessageManagement implements MessageManagementInterface
 
     public function __construct(
         DateTime $date,
+        LoggerInterface $logger,
         MessageRepositoryInterface $messageRepository,
         ObjectManagerInterface $objectManager,
         ScopeConfigInterface $scopeConfig,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->date = $date;
+        $this->logger = $logger;
         $this->messageRepository = $messageRepository;
         $this->objectManager = $objectManager;
         $this->scopeConfig = $scopeConfig;
@@ -61,6 +67,11 @@ class MessageManagement implements MessageManagementInterface
         } catch (\Throwable $exception) {
             $result = __("EXCEPTION: '{$exception->getMessage()}', check the var/exception.log for more details.");
             $status = Message::STATUS_ERROR;
+
+            $this->logger->error(
+                "Discorgento_Queue: {$exception->getMessage()}",
+                compact('exception')
+            );
         } finally {
             $message->setResult($result);
             $this->updateMessageStatus($message, $status);
