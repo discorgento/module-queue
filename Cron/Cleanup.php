@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 /** Copyright © Discorgento. All rights reserved. */
 
-namespace Discorgento\Queue\Model\Cron;
+namespace Discorgento\Queue\Cron;
 
 use Discorgento\Queue\Api\MessageRepositoryInterface;
 use Discorgento\Queue\Model\Message;

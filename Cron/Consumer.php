@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 /** Copyright © Discorgento. All rights reserved. */
 
-namespace Discorgento\Queue\Model\Cron;
+namespace Discorgento\Queue\Cron;
 
 use Discorgento\Queue\Api\MessageManagementInterface;
 
@@ -30,7 +30,7 @@ class Consumer
      */
     public function retry()
     {
-        $failedJobs = $this->messageManagement->getToBeRetried()->getItems();
+        $failedJobs = $this->messageManagement->getToBeRetried();
         $this->messageManagement->massProcess($failedJobs);
     }
 }
