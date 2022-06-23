@@ -173,12 +173,6 @@
             </item>
         </argument>
 
-        <settings>
-            <dndConfig>
-                <param name="enabled" xsi:type="boolean">false</param>
-            </dndConfig>
-        </settings>
-
         <selectionsColumn name="ids">
             <settings>
                 <resizeEnabled>false</resizeEnabled>
@@ -187,11 +181,12 @@
             </settings>
         </selectionsColumn>
 
-        <column name="message_id">
+        <column name="queued_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
             <settings>
-                <filter>textRange</filter>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Queued At</label>
                 <sorting>desc</sorting>
-                <label translate="true">ID</label>
             </settings>
         </column>
 
@@ -222,7 +217,6 @@
         <column name="additional_data">
             <settings>
                 <label translate="true">Parameters</label>
-                <visible>false</visible>
                 <bodyTmpl>Discorgento_Queue/ui/grid/cells/code</bodyTmpl>
             </settings>
         </column>
@@ -237,13 +231,10 @@
             </settings>
         </column>
 
-        <column name="queued_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+        <column name="tries">
             <settings>
-                <filter>dateRange</filter>
-                <dataType>date</dataType>
-                <label translate="true">Queued At</label>
+                <label translate="true">Tries</label>
                 <visible>false</visible>
-                <sortable>true</sortable>
             </settings>
         </column>
 
@@ -253,20 +244,12 @@
                 <dataType>date</dataType>
                 <label translate="true">Executed At</label>
                 <visible>false</visible>
-                <sortable>true</sortable>
             </settings>
         </column>
 
         <column name="result">
             <settings>
                 <label>Result</label>
-            </settings>
-        </column>
-
-        <column name="tries">
-            <settings>
-                <label translate="true">Tries</label>
-                <visible>false</visible>
             </settings>
         </column>
     </columns>
