@@ -32,14 +32,14 @@ class MessageManagement implements MessageManagementInterface
         DateTime $date,
         MessageRepositoryInterface $messageRepository,
         ObjectManagerInterface $objectManager,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        ScopeConfigInterface $scopeConfig
+        ScopeConfigInterface $scopeConfig,
+        SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->date = $date;
         $this->messageRepository = $messageRepository;
         $this->objectManager = $objectManager;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->scopeConfig = $scopeConfig;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
     /** @inheritDoc */
@@ -57,11 +57,13 @@ class MessageManagement implements MessageManagementInterface
                 $message->getAdditionalData()
             );
 
-            $message->setResult($result);
-            $this->updateMessageStatus($message, Message::STATUS_SUCCESS);
+            $status = Message::STATUS_SUCCESS;
         } catch (\Throwable $exception) {
-            $message->setResult($exception->getMessage());
-            $this->updateMessageStatus($message, Message::STATUS_ERROR);
+            $result = __("EXCEPTION: '{$exception->getMessage()}', check the var/exception.log for more details.");
+            $status = Message::STATUS_ERROR;
+        } finally {
+            $message->setResult($result);
+            $this->updateMessageStatus($message, $status);
         }
     }
 
