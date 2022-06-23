@@ -252,5 +252,11 @@
                 <label>Result</label>
             </settings>
         </column>
+
+        <actionsColumn name="actions" class="Discorgento\Queue\Ui\Component\Listing\Column\Actions">
+            <settings>
+                <indexField>message_id</indexField>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>

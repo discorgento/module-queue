@@ -1,0 +1,15 @@
+<!-- /**
+ * Copyright © Discorgento. All rights reserved.
+ * @see vendor/discorgento/module-queue/view/adminhtml/ui_component/discorgento_queue_form.xml
+*/ -->
+<span data-bind='css: {
+    "grid-severity-notice": ["success"].includes(value()),
+    "grid-severity-minor": ["processing"].includes(value()),
+    "grid-severity-major": ["error"].includes(value()),
+    "grid-severity-info": ["pending"].includes(value())
+}' style='
+    display: inline-block;
+    margin-top: 6px;
+'>
+    <!-- ko text: value --><!-- /ko -->
+</span>

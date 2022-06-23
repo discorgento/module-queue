@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!-- Copyright © Discorgento. All rights reserved. -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">discorgento_queue_form.discorgento_queue_form_data_source</item>
+            <item name="deps" xsi:type="string">discorgento_queue_form.discorgento_queue_form_data_source</item>
+        </item>
+
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+        </item>
+
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Discorgento\Queue\Block\Adminhtml\View\BackButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="discorgento_queue_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Discorgento\Queue\Ui\Component\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">discorgento_queue_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">message_id</argument>
+            <argument name="requestFieldName" xsi:type="string">message_id</argument>
+        </argument>
+
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="main_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string"></item>
+            </item>
+        </argument>
+
+        <field name="queued_at" formElement="input">
+            <settings>
+                <label translate="true">Queued At</label>
+                <elementTmpl>Discorgento_Queue/ui/form/element/readonly</elementTmpl>
+            </settings>
+        </field>
+
+        <field name="group" formElement="input">
+            <settings>
+                <label translate="true">Group</label>
+                <elementTmpl>Discorgento_Queue/ui/form/element/readonly</elementTmpl>
+            </settings>
+        </field>
+
+        <field name="job" formElement="input">
+            <settings>
+                <label translate="true">Job</label>
+                <elementTmpl>Discorgento_Queue/ui/form/element/readonly</elementTmpl>
+            </settings>
+        </field>
+
+        <field name="target" formElement="input">
+            <settings>
+                <label translate="true">Target</label>
+                <elementTmpl>Discorgento_Queue/ui/form/element/readonly</elementTmpl>
+            </settings>
+        </field>
+
+        <field name="additional_data" formElement="input">
+            <settings>
+                <label translate="true">Parameters</label>
+                <elementTmpl>Discorgento_Queue/ui/form/element/code</elementTmpl>
+            </settings>
+        </field>
+
+        <field name="status" formElement="input">
+            <settings>
+                <label translate="true">Status</label>
+                <elementTmpl>Discorgento_Queue/ui/form/field/status</elementTmpl>
+            </settings>
+        </field>
+
+        <field name="tries" formElement="input">
+            <settings>
+                <label translate="true">Tries</label>
+                <elementTmpl>Discorgento_Queue/ui/form/element/readonly</elementTmpl>
+            </settings>
+        </field>
+
+        <field name="executed_at" formElement="input">
+            <settings>
+                <label translate="true">Executed At</label>
+                <elementTmpl>Discorgento_Queue/ui/form/element/readonly</elementTmpl>
+            </settings>
+        </field>
+
+        <field name="result" formElement="input">
+            <settings>
+                <label translate="true">Result</label>
+                <elementTmpl>Discorgento_Queue/ui/form/element/readonly</elementTmpl>
+            </settings>
+        </field>
+    </fieldset>
+</form>
