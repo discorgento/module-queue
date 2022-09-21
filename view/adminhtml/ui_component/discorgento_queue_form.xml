@@ -99,7 +99,7 @@
         <field name="result" formElement="input">
             <settings>
                 <label translate="true">Result</label>
-                <elementTmpl>Discorgento_Queue/ui/form/element/readonly</elementTmpl>
+                <elementTmpl>Discorgento_Queue/ui/form/element/code</elementTmpl>
             </settings>
         </field>
     </fieldset>

@@ -43,7 +43,7 @@ class QueueManagement implements QueueManagementInterface
             $message = $this->messageFactory->create();
             $message->addData(compact('job', 'target'));
 
-            $this->parseAdditionlData($message, $additionalData);
+            $this->parseAdditionalData($message, $additionalData);
 
             if (!$this->alreadyQueued($message)) {
                 $this->messageRepository->save($message);
@@ -71,9 +71,7 @@ class QueueManagement implements QueueManagementInterface
     /**
      * Check if given message is already queued
      *
-     * @param Message $message
      *
-     * @return bool
      */
     private function alreadyQueued(Message $message): bool
     {
@@ -88,7 +86,7 @@ class QueueManagement implements QueueManagementInterface
             ->count() > 0;
     }
 
-    private function parseAdditionlData(Message $message, array $additionalData)
+    private function parseAdditionalData(Message $message, array $additionalData)
     {
         $settings = $additionalData[self::ADDITIONAL_SETTINGS_KEY] ?? [];
 

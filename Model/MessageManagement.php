@@ -63,6 +63,10 @@ class MessageManagement implements MessageManagementInterface
                 $message->getAdditionalData()
             );
 
+            if (is_array($result)) {
+                $result = json_encode($result, JSON_PRETTY_PRINT);
+            }
+
             $status = Message::STATUS_SUCCESS;
         } catch (\Throwable $exception) {
             $result = __("EXCEPTION: '%1', check the var/log/exception.log for more details.", $exception->getMessage());
