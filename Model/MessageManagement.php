@@ -8,32 +8,26 @@ use Discorgento\Queue\Api\MessageManagementInterface;
 use Discorgento\Queue\Api\MessageRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Filesystem\Driver\File as FileDriver;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Psr\Log\LoggerInterface;
 
 class MessageManagement implements MessageManagementInterface
 {
-    /** @var DateTime */
-    private $date;
-
-    /** @var LoggerInterface */
-    private $logger;
-
-    /** @var MessageRepositoryInterface */
-    private $messageRepository;
-
-    /** @var ObjectManagerInterface */
-    private $objectManager;
-
-    /** @var SearchCriteriaBuilder */
-    private $searchCriteriaBuilder;
-
-    /** @var ScopeConfigInterface */
-    private $scopeConfig;
+    private DateTime $date;
+    private FileDriver $fileDriver;
+    private LoggerInterface $logger;
+    private MessageRepositoryInterface $messageRepository;
+    private ObjectManagerInterface $objectManager;
+    private ScopeConfigInterface $scopeConfig;
+    private SearchCriteriaBuilder $searchCriteriaBuilder;
 
     public function __construct(
         DateTime $date,
+        FileDriver $fileDriver,
         LoggerInterface $logger,
         MessageRepositoryInterface $messageRepository,
         ObjectManagerInterface $objectManager,
@@ -41,6 +35,7 @@ class MessageManagement implements MessageManagementInterface
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->date = $date;
+        $this->fileDriver = $fileDriver;
         $this->logger = $logger;
         $this->messageRepository = $messageRepository;
         $this->objectManager = $objectManager;
@@ -51,6 +46,8 @@ class MessageManagement implements MessageManagementInterface
     /** @inheritDoc */
     public function process(MessageInterface $message)
     {
+        $lockFilePath = $this->checkLockfile();
+
         try {
             $message->setExecutedAt($this->date->gmtDate());
             $message->setTries($message->getTries() + 1);
@@ -79,6 +76,7 @@ class MessageManagement implements MessageManagementInterface
         } finally {
             $message->setResult($result);
             $this->updateMessageStatus($message, $status);
+            $this->fileDriver->deleteFile($lockFilePath);
         }
     }
 
@@ -120,5 +118,29 @@ class MessageManagement implements MessageManagementInterface
             ->create();
 
         return $this->messageRepository->getList($searchCriteria)->getItems();
+    }
+
+    /**
+     * Prevent jobs conflict by avoid them to run in parallel
+     * @throws LocalizedException
+     * @return string Lockfile relative path
+     */
+    private function checkLockfile()
+    {
+        $lockfilePath = DirectoryList::VAR_DIR . '/discorgento_queue.lock';
+        if ($this->fileDriver->isFile($lockfilePath)) {
+            $lockTimeLifespan = floatval($this->scopeConfig->getValue('queue/general/lockfile_expires')) * 3600 ?: 3600;
+            if (time() - filectime($lockfilePath) < $lockTimeLifespan) {
+                throw new LocalizedException(
+                    __('Queue already running! If you think this is mistake, delete the "%1" lock file.', $lockfilePath)
+                );
+            }
+
+            $this->fileDriver->deleteFile($lockfilePath);
+        }
+
+        $this->fileDriver->touch($lockfilePath);
+
+        return $lockfilePath;
     }
 }

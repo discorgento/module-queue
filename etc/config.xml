@@ -7,6 +7,7 @@
                 <auto_retry_amount>3</auto_retry_amount>
                 <failed_jobs_expires>30</failed_jobs_expires>
                 <success_jobs_expires>7</success_jobs_expires>
+                <lockfile_expires>1</lockfile_expires>
             </general>
         </queue>
     </default>

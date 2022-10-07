@@ -1,5 +1,6 @@
 "Amount of times to retry a failed job. '0' disables this feature.","Número de vezes para retentar um job falho. '0' desabilita esse recurso."
 "Auto-retry amount","Número de retentativas"
+"Delete lockfile older than ___ hour(s)","Excluir lockfile se tiver mais que __ hora(s)"
 "Executed At","Executado em"
 "Group","Grupo"
 "Keep failed jobs for ___ days","Manter jobs falhos por ___ dias"

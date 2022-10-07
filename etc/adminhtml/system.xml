@@ -21,6 +21,10 @@
                     <label>Keep success jobs for ___ days</label>
                     <validate>validate-number required-entry not-negative-amount</validate>
                 </field>
+                <field id="lockfile_expires" type="text" sortOrder="40" showInWebsite="1" showInStore="1" showInDefault="1" translate="label" canRestore="1">
+                    <label>Delete lockfile older than ___ hour(s)</label>
+                    <validate>validate-number required-entry not-negative-amount</validate>
+                </field>
             </group>
         </section>
     </system>
