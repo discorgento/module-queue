@@ -17,6 +17,8 @@ use Psr\Log\LoggerInterface;
 
 class MessageManagement implements MessageManagementInterface
 {
+    private const LOCK_FILE = 'discorgento_queue.lock';
+
     private DateTime $date;
     private FileDriver $fileDriver;
     private LoggerInterface $logger;
@@ -127,20 +129,20 @@ class MessageManagement implements MessageManagementInterface
      */
     private function checkLockfile()
     {
-        $lockfilePath = DirectoryList::VAR_DIR . '/discorgento_queue.lock';
-        if ($this->fileDriver->isFile($lockfilePath)) {
+        $lockFilepath = BP . DIRECTORY_SEPARATOR . DirectoryList::VAR_DIR . DIRECTORY_SEPARATOR . self::LOCK_FILE;
+        if ($this->fileDriver->isFile($lockFilepath)) {
             $lockTimeLifespan = floatval($this->scopeConfig->getValue('queue/general/lockfile_expires')) * 3600 ?: 3600;
-            if (time() - filectime($lockfilePath) < $lockTimeLifespan) {
+            if (time() - filectime($lockFilepath) < $lockTimeLifespan) {
                 throw new LocalizedException(
-                    __('Queue already running! If you think this is mistake, delete the "%1" lock file.', $lockfilePath)
+                    __('Queue already running! If you think this is mistake, delete the "%1" lock file.', $lockFilepath)
                 );
             }
 
-            $this->fileDriver->deleteFile($lockfilePath);
+            $this->fileDriver->deleteFile($lockFilepath);
         }
 
-        $this->fileDriver->touch($lockfilePath);
+        $this->fileDriver->touch($lockFilepath);
 
-        return $lockfilePath;
+        return $lockFilepath;
     }
 }
