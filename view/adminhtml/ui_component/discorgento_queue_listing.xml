@@ -175,12 +175,9 @@
 
         <selectionsColumn name="ids">
             <settings>
-                <resizeEnabled>false</resizeEnabled>
-                <resizeDefaultWidth>55</resizeDefaultWidth>
                 <indexField>message_id</indexField>
             </settings>
         </selectionsColumn>
-
 
         <column name="message_id">
             <settings>
@@ -190,13 +187,11 @@
             </settings>
         </column>
 
-        <column name="queued_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+        <actionsColumn name="actions" class="Discorgento\Queue\Ui\Component\Listing\Column\Actions">
             <settings>
-                <filter>dateRange</filter>
-                <dataType>date</dataType>
-                <label translate="true">Queued At</label>
+                <indexField>message_id</indexField>
             </settings>
-        </column>
+        </actionsColumn>
 
         <column name="group">
             <settings>
@@ -204,6 +199,23 @@
                 <options class="Discorgento\Queue\Ui\Component\Listing\Column\Group\Options"/>
                 <dataType>select</dataType>
                 <label translate="true">Group</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Discorgento\Queue\Ui\Component\Listing\Column\Status\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+                <bodyTmpl>Discorgento_Queue/ui/grid/cells/status</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="tries">
+            <settings>
+                <label translate="true">Tries</label>
                 <visible>false</visible>
             </settings>
         </column>
@@ -225,24 +237,23 @@
         <column name="additional_data">
             <settings>
                 <label translate="true">Parameters</label>
+                <visible>false</visible>
                 <bodyTmpl>Discorgento_Queue/ui/grid/cells/code</bodyTmpl>
             </settings>
         </column>
 
-        <column name="status" component="Magento_Ui/js/grid/columns/select">
+        <column name="result">
             <settings>
-                <filter>select</filter>
-                <options class="Discorgento\Queue\Ui\Component\Listing\Column\Status\Options"/>
-                <dataType>select</dataType>
-                <label translate="true">Status</label>
-                <bodyTmpl>Discorgento_Queue/ui/grid/cells/status</bodyTmpl>
+                <label>Result</label>
             </settings>
         </column>
 
-        <column name="tries">
+        <column name="queued_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
             <settings>
-                <label translate="true">Tries</label>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
                 <visible>false</visible>
+                <label translate="true">Queued At</label>
             </settings>
         </column>
 
@@ -254,17 +265,5 @@
                 <visible>false</visible>
             </settings>
         </column>
-
-        <column name="result">
-            <settings>
-                <label>Result</label>
-            </settings>
-        </column>
-
-        <actionsColumn name="actions" class="Discorgento\Queue\Ui\Component\Listing\Column\Actions">
-            <settings>
-                <indexField>message_id</indexField>
-            </settings>
-        </actionsColumn>
     </columns>
 </listing>
