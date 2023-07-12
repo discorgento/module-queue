@@ -17,6 +17,7 @@ class Retry extends Command
     /** @var ProgressBarFactory */
     private $progressBarFactory;
 
+    // phpcs:ignore
     public function __construct(
         MessageManagementInterface $messageManagement,
         ProgressBarFactory $progressBarFactory,
@@ -27,7 +28,9 @@ class Retry extends Command
         $this->progressBarFactory = $progressBarFactory;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     protected function configure()
     {
         $this->setName('discorgento:queue:retry');
@@ -36,14 +39,18 @@ class Retry extends Command
         parent::configure();
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $failedJobs = $this->messageManagement->getToBeRetried();
 
         $totalMessages = count($failedJobs);
         if ($totalMessages < 1) {
-            return $output->writeln("There's no jobs waiting to be retried.");
+            $output->writeln("There's no jobs waiting to be retried.");
+
+            return self::SUCCESS;
         }
 
         $output->writeln('Retrying the failed jobs..');
@@ -61,5 +68,7 @@ class Retry extends Command
 
         $progressBar->finish();
         $output->writeln(PHP_EOL . '<info>Done.</info>');
+
+        return self::SUCCESS;
     }
 }

@@ -29,6 +29,7 @@ class Clear extends Command
     /** @var ProgressBarFactory */
     private $progressBarFactory;
 
+    // phpcs:ignore
     public function __construct(
         ConfirmationQuestionFactory $confirmationQuestionFactory,
         CoreHelper $coreHelper,
@@ -45,7 +46,9 @@ class Clear extends Command
         $this->progressBarFactory = $progressBarFactory;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     protected function configure()
     {
         $this->setName('discorgento:queue:clear');
@@ -54,14 +57,18 @@ class Clear extends Command
         parent::configure();
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $messages = $this->messagesCollectionFactory->create();
 
         $totalMessages = $messages->getSize();
         if ($totalMessages < 1) {
-            return $output->writeln("<error>There's no pending jobs.</error>");
+            $output->writeln("<error>There's no pending jobs.</error>");
+
+            return self::SUCCESS;
         }
 
         if ($this->coreHelper->isProductionMode()) {
@@ -89,5 +96,7 @@ class Clear extends Command
         }
 
         $output->writeln(PHP_EOL . '<info>Done.</info>');
+
+        return self::SUCCESS;
     }
 }

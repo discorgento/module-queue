@@ -17,6 +17,7 @@ class Execute extends Command
     /** @var ProgressBarFactory */
     private $progressBarFactory;
 
+    // phpcs:ignore
     public function __construct(
         MessageManagementInterface $messageManagement,
         ProgressBarFactory $progressBarFactory,
@@ -27,7 +28,9 @@ class Execute extends Command
         $this->progressBarFactory = $progressBarFactory;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     protected function configure()
     {
         $this->setName('discorgento:queue:execute');
@@ -36,14 +39,18 @@ class Execute extends Command
         parent::configure();
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $pendingMessages = $this->messageManagement->getPending();
 
         $totalMessages = $pendingMessages->getTotalCount();
         if ($totalMessages < 1) {
-            return $output->writeln("There's no pending jobs.");
+            $output->writeln("There's no pending jobs.");
+
+            return self::SUCCESS;
         }
 
         $output->writeln('Executing the jobs in queue..');
@@ -62,5 +69,7 @@ class Execute extends Command
 
         $progressBar->finish();
         $output->writeln(PHP_EOL . '<info>Done.</info>');
+
+        return self::SUCCESS;
     }
 }
