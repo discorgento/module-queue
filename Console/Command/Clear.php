@@ -68,7 +68,7 @@ class Clear extends Command
         if ($totalMessages < 1) {
             $output->writeln("<error>There's no pending jobs.</error>");
 
-            return self::SUCCESS;
+            return 0;
         }
 
         if ($this->coreHelper->isProductionMode()) {
@@ -81,7 +81,7 @@ class Clear extends Command
             if (!$questionHelper->ask($input, $output, $question)) {
                 $output->writeln('Cleanup canceled.');
 
-                return self::SUCCESS;
+                return 0;
             }
         }
 
@@ -97,6 +97,6 @@ class Clear extends Command
 
         $output->writeln(PHP_EOL . '<info>Done.</info>');
 
-        return self::SUCCESS;
+        return 0;
     }
 }

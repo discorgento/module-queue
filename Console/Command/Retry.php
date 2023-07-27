@@ -50,7 +50,7 @@ class Retry extends Command
         if ($totalMessages < 1) {
             $output->writeln("There's no jobs waiting to be retried.");
 
-            return self::SUCCESS;
+            return 0;
         }
 
         $output->writeln('Retrying the failed jobs..');
@@ -69,6 +69,6 @@ class Retry extends Command
         $progressBar->finish();
         $output->writeln(PHP_EOL . '<info>Done.</info>');
 
-        return self::SUCCESS;
+        return 0;
     }
 }

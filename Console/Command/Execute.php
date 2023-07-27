@@ -50,7 +50,7 @@ class Execute extends Command
         if ($totalMessages < 1) {
             $output->writeln("There's no pending jobs.");
 
-            return self::SUCCESS;
+            return 0;
         }
 
         $output->writeln('Executing the jobs in queue..');
@@ -70,6 +70,6 @@ class Execute extends Command
         $progressBar->finish();
         $output->writeln(PHP_EOL . '<info>Done.</info>');
 
-        return self::SUCCESS;
+        return 0;
     }
 }
