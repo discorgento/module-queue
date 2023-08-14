@@ -71,7 +71,7 @@
         <field name="additional_data" formElement="input">
             <settings>
                 <label translate="true">Parameters</label>
-                <elementTmpl>Discorgento_Queue/ui/form/element/code</elementTmpl>
+                <elementTmpl>Discorgento_Queue/ui/form/element/json</elementTmpl>
             </settings>
         </field>
 
