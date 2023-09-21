@@ -20,7 +20,7 @@ For example, let's say you need to reflect product changes made by the storekeep
 
 ![Linear Workflow](docs/linear-workflow.png)
 
-But fear not citizens, because [we](https://discord.io/Discorgento) are here!  
+But fear not citizens, because [we](https://discorgento.com/discord) are here!  
 ![All Might laughting](docs/we-are-here.gif)
 
 ## Install 🔧
@@ -137,4 +137,4 @@ Although this module was <abbr title="originally it was designed for 1.9 due to 
 ## Notes 🗒
  - Magento can do this natively through [Message Queues](https://developer.adobe.com/commerce/php/development/components/message-queues/), but those are ridiculously verbose to use;
  - issues and PRs are welcome in this repo;
- - we want **YOU** for [our community](https://discord.io/Discorgento)!
+ - we want **YOU** for [our community](https://discorgento.com/discord)!
