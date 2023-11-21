@@ -4,8 +4,7 @@
 namespace Discorgento\Queue\Console\Command;
 
 use Discorgento\Core\Helper\Data as CoreHelper;
-use Discorgento\Queue\Model\MessageRepository;
-use Discorgento\Queue\Model\ResourceModel\Message\CollectionFactory as MessagesCollectionFactory;
+use Discorgento\Queue\Command\ClearCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBarFactory;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,35 +13,31 @@ use Symfony\Component\Console\Question\ConfirmationQuestionFactory;
 
 class Clear extends Command
 {
+    /** @var ClearCommand */
+    private $clearCommand;
+
     /** @var ConfirmationQuestionFactory */
     private $confirmationQuestionFactory;
 
     /** @var CoreHelper */
     private $coreHelper;
 
-    /** @var MessagesCollectionFactory */
-    private $messagesCollectionFactory;
-
-    /** @var MessageRepository */
-    private $messageRepository;
-
     /** @var ProgressBarFactory */
     private $progressBarFactory;
 
     // phpcs:ignore
     public function __construct(
+        ClearCommand $clearCommand,
         ConfirmationQuestionFactory $confirmationQuestionFactory,
         CoreHelper $coreHelper,
-        MessagesCollectionFactory $messagesCollectionFactory,
-        MessageRepository $messageRepository,
         ProgressBarFactory $progressBarFactory,
         string $name = null
     ) {
         parent::__construct($name);
+
+        $this->clearCommand = $clearCommand;
         $this->confirmationQuestionFactory = $confirmationQuestionFactory;
         $this->coreHelper = $coreHelper;
-        $this->messagesCollectionFactory = $messagesCollectionFactory;
-        $this->messageRepository = $messageRepository;
         $this->progressBarFactory = $progressBarFactory;
     }
 
@@ -62,10 +57,8 @@ class Clear extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $messages = $this->messagesCollectionFactory->create();
-
-        $totalMessages = $messages->getSize();
-        if ($totalMessages < 1) {
+        $total = $this->clearCommand->getTotal();
+        if ($total < 1) {
             $output->writeln("<error>There's no pending jobs.</error>");
 
             return 0;
@@ -87,11 +80,10 @@ class Clear extends Command
 
         $progressBar = $this->progressBarFactory->create([
             'output' => $output,
-            'max' => $totalMessages,
+            'max' => $total,
         ]);
 
-        foreach ($messages as $message) {
-            $this->messageRepository->delete($message);
+        foreach ($this->clearCommand->iterator() as $clearedMessage) {
             $progressBar->advance();
         }
 

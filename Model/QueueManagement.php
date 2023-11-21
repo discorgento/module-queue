@@ -85,25 +85,32 @@ class QueueManagement implements QueueManagementInterface
      * @param Message $message
      * @return bool
      */
-    private function alreadyQueued(Message $message): bool
+    public function alreadyQueued(Message $message): bool
     {
-        $encodedAdditionalData = json_encode($message->getAdditionalData());
+        $encodedAdditionalData = $this->serializer->serialize($message->getAdditionalData());
 
         return $this->messageCollectionFactory->create()
-            ->addFieldToFilter('group', $message->getGroup())
-            ->addFieldToFilter('job', $message->getJob())
-            ->addFieldToFilter('target', $message->getTarget())
-            ->addFieldToFilter('additional_data', $encodedAdditionalData)
-            ->addFieldToFilter('status', Message::STATUS_PENDING)
-            ->count() > 0;
+            ->addFieldToFilter(Message::FIELD_GROUP, $message->getGroup())
+            ->addFieldToFilter(Message::FIELD_JOB, $message->getJob())
+            ->addFieldToFilter(Message::FIELD_TARGET, $message->getTarget())
+            ->addFieldToFilter(Message::FIELD_ADDITIONAL_DATA, $encodedAdditionalData)
+            ->addFieldToFilter(Message::FIELD_STATUS, Message::STATUS_PENDING)
+            ->getSize() > 0;
     }
 
+    /**
+     * Parse additional data and set it to the message
+     *
+     * @param Message $message
+     * @param array $additionalData
+     * @return void
+     */
     private function parseAdditionalData(Message $message, array $additionalData)
     {
         $settings = $additionalData[self::ADDITIONAL_SETTINGS_KEY] ?? [];
 
         // handle message grouping
-        $group = $settings['group'] ?? 'default';
+        $group = $settings[Message::FIELD_GROUP] ?? Message::DEFAULT_GROUP;
         $message->setGroup($group);
 
         // additional settings can go here in future

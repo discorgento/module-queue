@@ -12,6 +12,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Filesystem\Driver\File as FileDriver;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Psr\Log\LoggerInterface;
 
@@ -40,6 +41,9 @@ class MessageManagement implements MessageManagementInterface
     /** @var SearchCriteriaBuilder */
     private $searchCriteriaBuilder;
 
+    /** @var SerializerInterface */
+    private $serializer;
+
     // phpcs:ignore
     public function __construct(
         DateTime $date,
@@ -48,7 +52,8 @@ class MessageManagement implements MessageManagementInterface
         MessageRepositoryInterface $messageRepository,
         ObjectManagerInterface $objectManager,
         ScopeConfigInterface $scopeConfig,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        SerializerInterface $serializer
     ) {
         $this->date = $date;
         $this->fileDriver = $fileDriver;
@@ -57,6 +62,7 @@ class MessageManagement implements MessageManagementInterface
         $this->objectManager = $objectManager;
         $this->scopeConfig = $scopeConfig;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->serializer = $serializer;
     }
 
     /** @inheritDoc */
@@ -77,7 +83,7 @@ class MessageManagement implements MessageManagementInterface
             );
 
             if (is_array($result)) {
-                $result = json_encode($result, JSON_PRETTY_PRINT);
+                $result = $this->serializer->serialize($result);
             }
 
             $status = Message::STATUS_SUCCESS;

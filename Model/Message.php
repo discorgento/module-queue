@@ -4,16 +4,11 @@
 namespace Discorgento\Queue\Model;
 
 use Discorgento\Queue\Api\Data\MessageInterface;
-use Discorgento\Queue\Model\ResourceModel\Message as MessageResourceModel;
-use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Serialize\SerializerInterface;
 
-class Message extends AbstractModel implements MessageInterface, IdentityInterface
+class Message extends AbstractModel implements MessageInterface
 {
-    public const CACHE_TAG = 'discorgento_queue';
-
-    public const STATUS_PENDING = 'pending';
-
     /** @var SerializerInterface */
     private $serializer;
 
@@ -30,22 +25,52 @@ class Message extends AbstractModel implements MessageInterface, IdentityInterfa
         $this->serializer = $serializer;
     }
 
-    public const STATUS_PROCESSING = 'processing';
-
-    public const STATUS_SUCCESS = 'success';
-
-    public const STATUS_ERROR = 'error';
-
-    /** @inheritDoc */
-    protected function _construct()
+    /**
+     * @inheritDoc
+     */
+    public function getGroup()
     {
-        $this->_init(MessageResourceModel::class);
+        return $this->getData(self::FIELD_GROUP) ?: self::DEFAULT_GROUP;
     }
 
-    /** @inheritDoc */
-    public function getIdentities()
+    /**
+     * @inheritDoc
+     */
+    public function setGroup($group): self
     {
-        return [self::CACHE_TAG . "_{$this->getId()}"];
+        return $this->setData(self::FIELD_GROUP, $group);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getJob()
+    {
+        return $this->getData(self::FIELD_JOB);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setJob($job): self
+    {
+        return $this->setData(self::FIELD_JOB, $job);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTarget()
+    {
+        return $this->getData(self::FIELD_TARGET);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setTarget($target): self
+    {
+        return $this->setData(self::FIELD_TARGET, $target);
     }
 
     /** @inheritDoc */
@@ -53,13 +78,13 @@ class Message extends AbstractModel implements MessageInterface, IdentityInterfa
     {
         $encodedData = $this->serializer->serialize($additionalData ?: []);
 
-        return $this->setData('additional_data', $encodedData);
+        return $this->setData(self::FIELD_ADDITIONAL_DATA, $encodedData);
     }
 
     /** @inheritDoc */
     public function getAdditionalData()
     {
-        $encodedData = (string) $this->getData('additional_data');
+        $encodedData = (string) $this->getData(self::FIELD_ADDITIONAL_DATA);
 
         return $this->serializer->unserialize($encodedData, true) ?: [];
     }
