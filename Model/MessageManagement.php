@@ -19,14 +19,28 @@ class MessageManagement implements MessageManagementInterface
 {
     private const LOCK_FILE = 'discorgento_queue.lock';
 
-    private DateTime $date;
-    private FileDriver $fileDriver;
-    private LoggerInterface $logger;
-    private MessageRepositoryInterface $messageRepository;
-    private ObjectManagerInterface $objectManager;
-    private ScopeConfigInterface $scopeConfig;
-    private SearchCriteriaBuilder $searchCriteriaBuilder;
+    /** @var DateTime */
+    private $date;
 
+    /** @var FileDriver */
+    private $fileDriver;
+
+    /** @var LoggerInterface */
+    private $logger;
+
+    /** @var MessageRepositoryInterface */
+    private $messageRepository;
+
+    /** @var ObjectManagerInterface */
+    private $objectManager;
+
+    /** @var ScopeConfigInterface */
+    private $scopeConfig;
+
+    /** @var SearchCriteriaBuilder */
+    private $searchCriteriaBuilder;
+
+    // phpcs:ignore
     public function __construct(
         DateTime $date,
         FileDriver $fileDriver,

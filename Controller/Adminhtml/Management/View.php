@@ -14,23 +14,32 @@ class View extends Action implements HttpGetActionInterface
 {
     public const ADMIN_RESOURCE = 'Discorgento_Queue::management';
 
-    private Registry $registry;
-    private PageFactory $resultPageFactory;
-    private MessageFactory $objectFactory;
+    /** @var Registry */
+    private $registry;
 
+    /** @var PageFactory */
+    private $resultPageFactory;
+
+    /** @var MessageFactory */
+    private $objectFactory;
+
+    // phpcs:ignore
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory,
         Registry $registry,
         MessageFactory $objectFactory
     ) {
+        parent::__construct($context);
+
         $this->resultPageFactory = $resultPageFactory;
         $this->registry = $registry;
         $this->objectFactory = $objectFactory;
-        parent::__construct($context);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function execute()
     {
         $id = $this->getRequest()->getParam('message_id');
