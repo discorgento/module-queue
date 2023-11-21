@@ -26,6 +26,7 @@ class MassRetry extends Action implements HttpPostActionInterface
     /** @var MessageRepositoryInterface */
     private $messageRepository;
 
+    // phpcs:ignore
     public function __construct(
         Context $context,
         Filter $filter,
@@ -38,6 +39,9 @@ class MassRetry extends Action implements HttpPostActionInterface
         parent::__construct($context);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function execute(): Redirect
     {
         $collection = $this->filter->getCollection($this->objectCollection);

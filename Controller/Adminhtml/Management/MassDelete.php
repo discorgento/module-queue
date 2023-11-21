@@ -21,6 +21,7 @@ class MassDelete extends Action implements HttpPostActionInterface
     /** @var Collection */
     private $objectCollection;
 
+    // phpcs:ignore
     public function __construct(
         Context $context,
         Filter $filter,
@@ -31,6 +32,9 @@ class MassDelete extends Action implements HttpPostActionInterface
         parent::__construct($context);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function execute(): Redirect
     {
         $collection = $this->filter->getCollection($this->objectCollection);

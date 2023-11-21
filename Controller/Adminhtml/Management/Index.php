@@ -16,6 +16,7 @@ class Index extends Action implements HttpGetActionInterface
     /** @var PageFactory */
     private $resultPageFactory;
 
+    // phpcs:ignore
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory
@@ -24,6 +25,9 @@ class Index extends Action implements HttpGetActionInterface
         $this->resultPageFactory = $resultPageFactory;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function execute(): Page
     {
         /** @var Page $resultPage */

@@ -19,6 +19,7 @@ class Cleanup
     /** @var ScopeConfigInterface */
     private $scopeConfig;
 
+    // phpcs:ignore
     public function __construct(
         MessageRepositoryInterface $messageRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -38,18 +39,35 @@ class Cleanup
         $this->cleanOldFailure();
     }
 
+    /**
+     * Clean old success messages
+     *
+     * @return void
+     */
     private function cleanOldSuccess()
     {
         $days = $this->scopeConfig->getValue('queue/general/success_jobs_expires');
         $this->cleanOld(Message::STATUS_SUCCESS, $days);
     }
 
+    /**
+     * Clean old failure messages
+     *
+     * @return void
+     */
     private function cleanOldFailure()
     {
         $days = $this->scopeConfig->getValue('queue/general/failed_jobs_expires');
         $this->cleanOld(Message::STATUS_ERROR, $days);
     }
 
+    /**
+     * Abstract old messages cleaner
+     *
+     * @param string $status
+     * @param int $days
+     * @return void
+     */
     private function cleanOld($status, $days)
     {
         $daysAgoTimestamp = (new \DateTime())
