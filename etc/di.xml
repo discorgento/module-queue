@@ -10,6 +10,13 @@
     <preference for="Discorgento\Queue\Api\Data\MessageInterface" type="Discorgento\Queue\Model\Message"/>
     <preference for="Discorgento\Queue\Api\Data\MessageSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
 
+    <!-- link models to their respective resource models -->
+    <type name="Discorgento\Queue\Model\Message">
+        <arguments>
+            <argument name="resource" xsi:type="object">Discorgento\Queue\Model\ResourceModel\Message</argument>
+        </arguments>
+    </type>
+
     <!-- console commands -->
     <type name="Magento\Framework\Console\CommandListInterface">
         <arguments>

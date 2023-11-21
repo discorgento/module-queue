@@ -14,6 +14,22 @@ class Message extends AbstractModel implements MessageInterface, IdentityInterfa
 
     public const STATUS_PENDING = 'pending';
 
+    /** @var SerializerInterface */
+    private $serializer;
+
+    // phpcs:ignore
+    public function __construct(
+        SerializerInterface $serializer,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        array $data = []
+    ) {
+        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
+        $this->serializer = $serializer;
+    }
+
     public const STATUS_PROCESSING = 'processing';
 
     public const STATUS_SUCCESS = 'success';
@@ -35,7 +51,7 @@ class Message extends AbstractModel implements MessageInterface, IdentityInterfa
     /** @inheritDoc */
     public function setAdditionalData($additionalData)
     {
-        $encodedData = json_encode($additionalData ?: []);
+        $encodedData = $this->serializer->serialize($additionalData ?: []);
 
         return $this->setData('additional_data', $encodedData);
     }
@@ -45,6 +61,6 @@ class Message extends AbstractModel implements MessageInterface, IdentityInterfa
     {
         $encodedData = (string) $this->getData('additional_data');
 
-        return json_decode($encodedData, true) ?: [];
+        return $this->serializer->unserialize($encodedData, true) ?: [];
     }
 }

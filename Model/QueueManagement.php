@@ -5,6 +5,7 @@ namespace Discorgento\Queue\Model;
 
 use Discorgento\Queue\Api\QueueManagementInterface;
 use Discorgento\Queue\Model\ResourceModel\Message\CollectionFactory as MessageCollectionFactory;
+use Magento\Framework\Serialize\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
 class QueueManagement implements QueueManagementInterface
@@ -23,19 +24,27 @@ class QueueManagement implements QueueManagementInterface
     /** @var MessageRepository */
     private $messageRepository;
 
+    /** @var SerializerInterface */
+    private $serializer;
+
+    // phpcs:ignore
     public function __construct(
         LoggerInterface $logger,
         MessageCollectionFactory $messageCollectionFactory,
         MessageFactory $messageFactory,
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
+        SerializerInterface $serializer
     ) {
         $this->logger = $logger;
         $this->messageCollectionFactory = $messageCollectionFactory;
         $this->messageFactory = $messageFactory;
         $this->messageRepository = $messageRepository;
+        $this->serializer = $serializer;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function append(string $job, $target = null, array $additionalData = [])
     {
         try {
@@ -50,13 +59,15 @@ class QueueManagement implements QueueManagementInterface
             }
         } catch (\Throwable $th) {
             $this->logger->error(
-                "Discorgento_Queue: failed to append the job, {$th->getMessage()}",
-                compact('job', 'target')
+                "Discorgento_Queue: failed to append job: {$th->getMessage()}",
+                ['exception' => $th, 'job' => $job, 'target' => $target, 'additionalData' => $additionalData]
             );
         }
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function appendToGroup(
         string $group,
         string $job,
@@ -71,7 +82,8 @@ class QueueManagement implements QueueManagementInterface
     /**
      * Check if given message is already queued
      *
-     *
+     * @param Message $message
+     * @return bool
      */
     private function alreadyQueued(Message $message): bool
     {
