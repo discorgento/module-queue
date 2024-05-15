@@ -9,13 +9,18 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 class BackButton implements ButtonProviderInterface
 {
+    /** @var UrlInterface */
     private UrlInterface $urlBuilder;
 
+    // phpcs:ignore
     public function __construct(Context $context)
     {
         $this->urlBuilder = $context->getUrlBuilder();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getButtonData(): array
     {
         return [
@@ -25,6 +30,11 @@ class BackButton implements ButtonProviderInterface
         ];
     }
 
+    /**
+     * Get previous url
+     *
+     * @return string
+     */
     public function getBackUrl(): string
     {
         return $this->urlBuilder->getUrl('*/*/');

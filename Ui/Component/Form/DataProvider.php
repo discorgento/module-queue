@@ -8,11 +8,13 @@ use Magento\Ui\DataProvider\AbstractDataProvider;
 
 class DataProvider extends AbstractDataProvider
 {
-    private array $loadedData = [];
+    /** @var array */
+    private $loadedData = [];
 
-    /** must be protected */
+    /** @var Collection */
     protected $collection;
 
+    // phpcs:ignore
     public function __construct(
         $name,
         $primaryFieldName,
@@ -25,14 +27,19 @@ class DataProvider extends AbstractDataProvider
         $this->collection = $collection;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getData(): array
     {
-        if (!$this->loadedData) {
-            $items = $this->collection->getItems();
-            foreach ($items as $item) {
-                $this->loadedData[$item->getId()] = $item->getData();
-                break;
-            }
+        if ($this->loadedData) {
+            return $this->loadedData;
+        }
+
+        $items = $this->collection->getItems();
+        foreach ($items as $item) {
+            $this->loadedData[$item->getId()] = $item->getData();
+            break;
         }
 
         return $this->loadedData;

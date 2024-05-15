@@ -10,6 +10,7 @@ class Consumer
     /** @var MessageManagementInterface */
     private $messageManagement;
 
+    // phpcs:ignore
     public function __construct(
         MessageManagementInterface $messageManagement
     ) {

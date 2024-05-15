@@ -12,8 +12,10 @@ class Actions extends Column
 {
     public const URL_PATH_VIEW = 'discorgento_queue/management/view';
 
-    private UrlInterface $urlBuilder;
+    /** @var UrlInterface */
+    private $urlBuilder;
 
+    // phpcs:ignore
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
@@ -25,6 +27,9 @@ class Actions extends Column
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function prepareDataSource(array $dataSource): array
     {
         if (!isset($dataSource['data']['items'])) {

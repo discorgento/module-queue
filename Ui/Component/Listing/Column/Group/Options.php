@@ -11,13 +11,16 @@ class Options implements OptionSourceInterface
     /** @var MessageCollectionFactory */
     private $messageCollectionFactory;
 
+    // phpcs:ignore
     public function __construct(
         MessageCollectionFactory $messageCollectionFactory
     ) {
         $this->messageCollectionFactory = $messageCollectionFactory;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function toOptionArray()
     {
         $messages = $this->messageCollectionFactory->create();

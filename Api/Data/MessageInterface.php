@@ -31,7 +31,7 @@ interface MessageInterface
      * @param string $group
      * @return \Discorgento\Queue\Api\Data\MessageInterface
      */
-    public function setGroup($group): self;
+    public function setGroup($group);
 
     /**
      * "job" getter
@@ -46,7 +46,7 @@ interface MessageInterface
      * @param string $job
      * @return \Discorgento\Queue\Api\Data\MessageInterface
      */
-    public function setJob($job): self;
+    public function setJob($job);
 
     /**
      * "target" getter
@@ -61,7 +61,7 @@ interface MessageInterface
      * @param string $target
      * @return \Discorgento\Queue\Api\Data\MessageInterface
      */
-    public function setTarget($target): self;
+    public function setTarget($target);
 
     /**
      * Set additional data that can be used by the job later

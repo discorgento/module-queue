@@ -36,7 +36,7 @@ class Message extends AbstractModel implements MessageInterface
     /**
      * @inheritDoc
      */
-    public function setGroup($group): self
+    public function setGroup($group)
     {
         return $this->setData(self::FIELD_GROUP, $group);
     }
@@ -52,7 +52,7 @@ class Message extends AbstractModel implements MessageInterface
     /**
      * @inheritDoc
      */
-    public function setJob($job): self
+    public function setJob($job)
     {
         return $this->setData(self::FIELD_JOB, $job);
     }
@@ -68,12 +68,14 @@ class Message extends AbstractModel implements MessageInterface
     /**
      * @inheritDoc
      */
-    public function setTarget($target): self
+    public function setTarget($target)
     {
         return $this->setData(self::FIELD_TARGET, $target);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function setAdditionalData($additionalData)
     {
         $encodedData = $this->serializer->serialize($additionalData ?: []);
@@ -81,7 +83,9 @@ class Message extends AbstractModel implements MessageInterface
         return $this->setData(self::FIELD_ADDITIONAL_DATA, $encodedData);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function getAdditionalData()
     {
         $encodedData = (string) $this->getData(self::FIELD_ADDITIONAL_DATA);

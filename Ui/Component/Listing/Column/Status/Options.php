@@ -8,7 +8,9 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 class Options implements OptionSourceInterface
 {
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function toOptionArray()
     {
         return [[
