@@ -31,7 +31,7 @@ class Clear extends Command
         ConfirmationQuestionFactory $confirmationQuestionFactory,
         CoreHelper $coreHelper,
         ProgressBarFactory $progressBarFactory,
-        string $name = null
+        ?string $name = null
     ) {
         parent::__construct($name);
 

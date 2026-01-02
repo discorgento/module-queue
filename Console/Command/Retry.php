@@ -21,7 +21,7 @@ class Retry extends Command
     public function __construct(
         MessageManagementInterface $messageManagement,
         ProgressBarFactory $progressBarFactory,
-        string $name = null
+        ?string $name = null
     ) {
         parent::__construct($name);
         $this->messageManagement = $messageManagement;
