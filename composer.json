@@ -5,8 +5,8 @@
     "license": "MIT",
     "minimum-stability": "alpha",
     "require": {
-        "php": ">=7.3.0 <8.5",
-        "discorgento/module-core": "^2"
+        "php": ">=7.4.0 <8.5",
+        "discorgento/module-core": "^2.0.3"
     },
     "autoload": {
         "files": [
