@@ -8,15 +8,17 @@ use Magento\Framework\Api\SearchResultsInterface;
 interface MessageSearchResultsInterface extends SearchResultsInterface
 {
     /**
-     * Get Message list.
-     * @return MessageInterface[]
+     * Get items list.
+     *
+     * @return \Discorgento\Queue\Api\Data\MessageInterface[]
      */
     public function getItems();
 
     /**
-     * Set job list.
-     * @param MessageInterface[] $items
-     * @return self
+     * Set items list.
+     *
+     * @param \Discorgento\Queue\Api\Data\MessageInterface[] $items
+     * @return $this
      */
     public function setItems(array $items);
 }

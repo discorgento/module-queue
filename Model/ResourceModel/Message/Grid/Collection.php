@@ -18,6 +18,7 @@ class Collection extends MessageCollection implements SearchResultInterface
     /** @var AggregationInterface */
     private $aggregations;
 
+    // phpcs:ignore
     public function __construct(
         EntityFactoryInterface $entityFactory,
         LoggerInterface $logger,
@@ -46,11 +47,17 @@ class Collection extends MessageCollection implements SearchResultInterface
         $this->setMainTable($mainTable);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getAggregations(): AggregationInterface
     {
         return $this->aggregations;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setAggregations($aggregations): void
     {
         $this->aggregations = $aggregations;
@@ -59,32 +66,42 @@ class Collection extends MessageCollection implements SearchResultInterface
     /**
      * Retrieve all ids for collection
      * Backward compatibility with EAV collection
+     *
+     * @param integer|null $limit
+     * @param integer|null $offset
+     * @return array
      */
     public function getAllIds(?int $limit = null, ?int $offset = null): array
     {
         return $this->getConnection()->fetchCol($this->_getAllIdsSelect($limit, $offset), $this->_bindParams);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getSearchCriteria(): ?SearchCriteriaInterface
     {
         return null;
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @inheritDoc
      */
     public function setSearchCriteria(SearchCriteriaInterface $searchCriteria = null): Collection
     {
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getTotalCount(): int
     {
         return $this->getSize();
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @inheritDoc
      */
     public function setTotalCount($totalCount): Collection
     {
@@ -92,7 +109,7 @@ class Collection extends MessageCollection implements SearchResultInterface
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @inheritDoc
      */
     public function setItems(array $items = null): Collection
     {

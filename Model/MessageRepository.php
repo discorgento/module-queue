@@ -29,6 +29,7 @@ class MessageRepository implements MessageRepositoryInterface
     /** @var CollectionProcessorInterface */
     protected $collectionProcessor;
 
+    // phpcs:ignore
     public function __construct(
         ResourceMessage $resource,
         MessageInterfaceFactory $messageFactory,
@@ -43,7 +44,9 @@ class MessageRepository implements MessageRepositoryInterface
         $this->collectionProcessor = $collectionProcessor;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function getById($messageId)
     {
         $message = $this->messageFactory->create();
@@ -55,7 +58,9 @@ class MessageRepository implements MessageRepositoryInterface
         return $message;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
         $collection = $this->messageCollectionFactory->create();
@@ -75,19 +80,25 @@ class MessageRepository implements MessageRepositoryInterface
         return $searchResults;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function save($message)
     {
         $this->resource->save($message);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function delete($message)
     {
         $this->resource->delete($message);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function deleteById($messageId)
     {
         $this->delete($this->getById($messageId));

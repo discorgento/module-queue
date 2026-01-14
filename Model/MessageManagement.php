@@ -65,7 +65,9 @@ class MessageManagement implements MessageManagementInterface
         $this->serializer = $serializer;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function process(MessageInterface $message)
     {
         $lockFilePath = $this->checkLockfile();
@@ -102,7 +104,9 @@ class MessageManagement implements MessageManagementInterface
         }
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function massProcess(iterable $messages)
     {
         foreach ($messages as $message) {
@@ -110,13 +114,22 @@ class MessageManagement implements MessageManagementInterface
         }
     }
 
+    /**
+     * Update given message status at db
+     *
+     * @param Message $message
+     * @param string $status
+     * @return void
+     */
     private function updateMessageStatus(Message $message, string $status): void
     {
         $message->setStatus($status);
         $this->messageRepository->save($message);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function getPending()
     {
         $searchCriteria = $this->searchCriteriaBuilder
@@ -126,7 +139,9 @@ class MessageManagement implements MessageManagementInterface
         return $this->messageRepository->getList($searchCriteria);
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     */
     public function getToBeRetried()
     {
         $retryAmount = $this->scopeConfig->getValue('queue/general/auto_retry_amount');
@@ -144,6 +159,7 @@ class MessageManagement implements MessageManagementInterface
 
     /**
      * Prevent jobs conflict by avoid them to run in parallel
+     *
      * @throws LocalizedException
      * @return string Lockfile relative path
      */

@@ -6,14 +6,14 @@ namespace Discorgento\Queue\Helper;
 use Discorgento\Queue\Api\QueueManagementInterface;
 
 /**
- * Although technically deprecated, this class
- * will be kept to assure retrocompatibility.
+ * Deprecated, kept for retrocompatibility
  */
 class Data
 {
     /** @var QueueManagementInterface */
     private $queueManagement;
 
+    // phpcs:ignore
     public function __construct(
         QueueManagementInterface $queueManagement
     ) {

@@ -10,6 +10,7 @@ class Message extends AbstractDb
     public const ID_FIELD = 'message_id';
     public const TABLE_NAME = 'discorgento_queue';
 
+    // phpcs:ignore
     protected function _construct()
     {
         $this->_init(self::TABLE_NAME, self::ID_FIELD);
