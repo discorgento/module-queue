@@ -24,7 +24,7 @@ But fear not citizens, because [we](https://discorgento.com/discord) are here!
 ![All Might laughting](docs/we-are-here.gif)
 
 ## Install 🔧
-This module is compatible with both Magento 2.3 and 2.4, from PHP 7.3 to 8.1.
+This module is compatible with both Magento 2.3 and 2.4, from PHP 7.3 to 8.3.
 ```
 composer require discorgento/module-queue:^3 && bin/magento setup:upgrade
 ```
